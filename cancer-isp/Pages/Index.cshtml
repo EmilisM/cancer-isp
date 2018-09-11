@@ -1,0 +1,14 @@
+﻿@page
+@{
+    Layout = "Shared/_Layout";
+    ViewData["Title"] = "React";
+}
+
+<div id="react-app"></div>
+
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/dist/hello.js"></script>
+    </environment>
+}
