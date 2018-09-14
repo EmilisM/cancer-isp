@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>_Layout</title>
+
+    <environment names="Staging.Production">
+        <script rel="stylesheet" src="~/dist/styles.css"></script>
+    </environment>
+</head>
+<body>
+
+@await Html.PartialAsync("_Header")
+
+<main role="main" class="container">
+    @RenderBody()
+</main>
+
+<environment names="Development">
+    <script src="~/dist/main.js"></script>
+</environment>
+<environment names="Staging.Production">
+    <script src="~/dist/main.js"></script>
+</environment>
+
+</body>
+</html>
