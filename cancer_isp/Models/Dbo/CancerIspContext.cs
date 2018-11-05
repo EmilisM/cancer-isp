@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace cancer_isp.Models.Dbo
 {
-    public partial class CancerIspContext : DbContext
+    public class CancerIspContext : DbContext
     {
         public CancerIspContext(DbContextOptions<CancerIspContext> options)
             : base(options)
@@ -413,7 +414,8 @@ namespace cancer_isp.Models.Dbo
 
                 entity.Property(e => e.UserState)
                     .HasColumnName("user_state")
-                    .HasColumnType("varchar(255)");
+                    .HasColumnType("varchar(255)")
+                    .HasConversion(new EnumToStringConverter<UserStateEnum>());
 
                 entity.Property(e => e.Username)
                     .HasColumnName("username")
@@ -467,7 +469,8 @@ namespace cancer_isp.Models.Dbo
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
-                    .HasColumnType("varchar(255)");
+                    .HasColumnType("varchar(255)")
+                    .HasConversion(new EnumToStringConverter<UserRoleEnum>());
             });
 
             modelBuilder.Entity<WorkType>(entity =>

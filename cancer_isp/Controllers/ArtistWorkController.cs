@@ -2,8 +2,8 @@
 
 namespace cancer_isp.Controllers
 {
-    public class ArtistWorkController : Controller
-    {
+    public class ArtistWorkController : BaseController
+	{
         [Route("work")]
         public IActionResult Index()
         {

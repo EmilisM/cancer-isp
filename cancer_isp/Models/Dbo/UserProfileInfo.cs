@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace cancer_isp.Models.Dbo
 {
-    public partial class UserProfileInfo
+    public class UserProfileInfo
     {
         public UserProfileInfo()
         {

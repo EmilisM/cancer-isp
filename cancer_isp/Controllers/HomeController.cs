@@ -1,9 +1,10 @@
-﻿using cancer_isp.Models.Dbo;
+﻿using System.Linq;
+using cancer_isp.Models.Dbo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cancer_isp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly CancerIspContext _context;
 

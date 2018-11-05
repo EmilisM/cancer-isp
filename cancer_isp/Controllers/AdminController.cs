@@ -2,8 +2,8 @@
 
 namespace cancer_isp.Controllers
 {
-    public class AdminController : Controller
-    {
+    public class AdminController : BaseController
+	{
         public IActionResult Index()
         {
             return View();

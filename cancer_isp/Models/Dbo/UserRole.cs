@@ -2,7 +2,7 @@
 
 namespace cancer_isp.Models.Dbo
 {
-    public partial class UserRole
+    public class UserRole
     {
         public UserRole()
         {
@@ -10,7 +10,7 @@ namespace cancer_isp.Models.Dbo
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
+        public UserRoleEnum Name { get; set; }
 
         public ICollection<User> User { get; set; }
     }

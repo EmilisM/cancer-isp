@@ -1,4 +1,5 @@
-﻿@{
+﻿@model cancer_isp.Models.Dbo.User
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,47 +16,47 @@
                         <div class="form-group">
                             <label class="profile-field-title">Username</label>
                             <br/>
-                            <label>Username</label>
+                            <label>@Model.Username</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">First name</label>
                             <br/>
-                            <label>First name</label>
+                            <label>@Model.FkUserProfileInfo.FirstName</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Last name</label>
                             <br/>
-                            <label>Last name</label>
+                            <label>@Model.FkUserProfileInfo.LastName</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Registration date</label>
                             <br/>
-                            <label>Registration date</label>
+                            <label>@Model.RegistrationDate</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Description</label>
                             <br/>
-                            <label>Description</label>
+                            <label>@Model.FkUserProfileInfo.Description</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Birthdate</label>
                             <br/>
-                            <label>Birthdate</label>
+                            <label>@Model.FkUserProfileInfo.Birthdate</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Phone number</label>
                             <br/>
-                            <label>Phone number</label>
+                            <label>@Model.FkUserProfileInfo.PhoneNumber</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Email</label>
                             <br/>
-                            <label>Email</label>
+                            <label>@Model.Email</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Karma points</label>
                             <br/>
-                            <label>Karma points</label>
+                            <label>@Model.KarmaPoints</label>
                         </div>
                     </div>
                 </div>

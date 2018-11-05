@@ -2,8 +2,8 @@
 
 namespace cancer_isp.Controllers
 {
-    public class ArtistController : Controller
-    {
+    public class ArtistController : BaseController
+	{
         public IActionResult Index()
         {
             return View();

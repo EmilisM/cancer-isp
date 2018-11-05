@@ -1,5 +1,7 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
     var action = ViewContext.RouteData.Values["Action"].ToString();
+    var controller = ViewContext.RouteData.Values["Controller"].ToString();
 }
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -10,8 +12,18 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link @( action == "LogIn" ? "active" : "" )" asp-action="LogIn" asp-controller="Login">Log In</a>
-            <a class="nav-item nav-link @( action == "SignUp" ? "active" : "" )" asp-action="SignUp" asp-controller="Login">Sign Up</a>
+            @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                <a class="nav-item nav-link @(action == "Index" && controller == "Profile" ? "active" : "")" asp-action="Index" asp-controller="Profile">Profile</a>
+                <a class="nav-item nav-link @(action == "Index" && controller == "Artist" ? "active" : "")" asp-action="Index" asp-controller="Artist">Artist</a>
+                <a class="nav-item nav-link @(action == "Index" && controller == "ArtistWork" ? "active" : "")" asp-action="Index" asp-controller="ArtistWork">Artist work</a>
+                <a class="nav-item nav-link" asp-action="SignOut" asp-controller="Login">Sign out</a>
+            }
+            else
+            {
+                <a class="nav-item nav-link @(action == "LogIn" ? "active" : "")" asp-action="LogIn" asp-controller="Login">Log In</a>
+                <a class="nav-item nav-link @(action == "SignUp" ? "active" : "")" asp-action="SignUp" asp-controller="Login">Sign Up</a>
+            }
         </div>
     </div>
 

@@ -20,7 +20,7 @@ namespace cancer_isp.Models.Dbo
         public string PasswordSalt { get; set; }
         public int? KarmaPoints { get; set; }
         public string Email { get; set; }
-        public string UserState { get; set; }
+        public UserStateEnum UserState { get; set; }
         public int FkUserRoleid { get; set; }
         public int FkUserProfileInfoid { get; set; }
 
