@@ -11,12 +11,32 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+        <ul class="navbar-nav">
+
             @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                <a class="nav-item nav-link @(action == "Index" && controller == "Profile" ? "active" : "")" asp-action="Index" asp-controller="Profile">Profile</a>
-                <a class="nav-item nav-link @(action == "Index" && controller == "Artist" ? "active" : "")" asp-action="Index" asp-controller="Artist">Artist</a>
-                <a class="nav-item nav-link @(action == "Index" && controller == "ArtistWork" ? "active" : "")" asp-action="Index" asp-controller="ArtistWork">Artist work</a>
+                <li class="nav-item @(action == "Index" && controller == "Profile" ? "active" : "")">
+                    <a class="nav-item nav-link" asp-action="Index" asp-controller="Profile">Profile</a>
+                </li>
+                <li class="nav-item dropdown @(controller == "ArtistWork" ? "active" : "")">
+                    <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Work of art
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" asp-action="Index" asp-controller="ArtistWork">Work of art</a>
+                        <a class="dropdown-item" asp-action="Register" asp-controller="ArtistWork">Register</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown @(controller == "Artist" ? "active" : "")">
+                    <div class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Artist
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" asp-action="Index" asp-controller="Artist">Artist</a>
+                        <a class="dropdown-item" asp-action="List" asp-controller="Artist">List</a>
+                        <a class="dropdown-item" asp-action="Register" asp-controller="Artist">Register artist</a>
+                    </div>
+                </li>
                 <a class="nav-item nav-link" asp-action="SignOut" asp-controller="Login">Sign out</a>
             }
             else
@@ -24,7 +44,7 @@
                 <a class="nav-item nav-link @(action == "LogIn" ? "active" : "")" asp-action="LogIn" asp-controller="Login">Log In</a>
                 <a class="nav-item nav-link @(action == "SignUp" ? "active" : "")" asp-action="SignUp" asp-controller="Login">Sign Up</a>
             }
-        </div>
+        </ul>
     </div>
 
     <form class="form-inline">
