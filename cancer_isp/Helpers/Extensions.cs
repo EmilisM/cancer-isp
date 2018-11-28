@@ -8,5 +8,10 @@ namespace cancer_isp.Helpers
         {
             return (T) Enum.Parse(typeof(T), value, true);
         }
+
+        public static T ToEnum<T>(this int value)
+        {
+            return (T) Enum.ToObject(typeof(T), value);
+        }
     }
 }
