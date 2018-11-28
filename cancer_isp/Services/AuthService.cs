@@ -11,17 +11,19 @@ namespace cancer_isp.Services
     public class AuthService : IAuthService
     {
         private readonly CancerIspContext _entities;
+        private readonly IUserService _userService;
 
-        public AuthService(CancerIspContext entities)
+        public AuthService(CancerIspContext entities, IUserService userService)
         {
             _entities = entities;
+            _userService = userService;
         }
 
-        public User AuthUser(LoginModel model)
+        public User AuthUser(LoginModel model, bool admin = false)
         {
-            var user = _entities.User.FirstOrDefault(item => string.Compare(item.Username, model.Username, StringComparison.Ordinal) == 0);
+            var user = _userService.GetUser(model.Username);
 
-            if (user == null || user.UserState == UserStateEnum.Blocked)
+            if (user == null || user.UserState == UserStateEnum.Blocked || admin && user.FkUserRole.Name == UserRoleEnum.Administrator)
             {
                 return null;
             }
