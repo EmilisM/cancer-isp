@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@{
+    ViewData["Title"] = "_Message";
+    Layout = null;
+
+    IEnumerable<ModelError> allErrors = ViewData.ModelState.Values.SelectMany(values => values.Errors).ToList();
+    var successMessage = TempData["success"];
+}
+@if (allErrors.Any())
+{
+    foreach (var error in allErrors)
+    {
+        <br/>
+        <div class="alert alert-danger">
+            <strong>Error: </strong>@error.ErrorMessage
+        </div>
+    }
+}
+else if (successMessage != null)
+{
+    <br/>
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}

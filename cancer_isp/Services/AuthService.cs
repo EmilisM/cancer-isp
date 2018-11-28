@@ -33,31 +33,40 @@ namespace cancer_isp.Services
             return string.Compare(user.PasswordHash, hashToCompare, StringComparison.Ordinal) == 0 ? user : null;
         }
 
-        public void RegisterUser(RegistrationModel model)
+        public bool RegisterUser(RegistrationModel model)
         {
             byte[] salt = new byte[128 / 8];
 
             var random = RandomNumberGenerator.Create();
             random.GetBytes(salt);
 
-            string passwordHash = Convert.ToBase64String(KeyDerivation.Pbkdf2(model.Password, salt, KeyDerivationPrf.HMACSHA1, 10000, 256 / 8));
-
-            var newUserProfile = new UserProfileInfo();
-
-            var newUser = new User
+            try
             {
-                Username = model.Username,
-                RegistrationDate = DateTime.Now,
-                PasswordHash = passwordHash,
-                PasswordSalt = Convert.ToBase64String(salt),
-                UserState = UserStateEnum.Active,
-                Email = model.Email,
-                FkUserRole = _entities.UserRole.First(item => item.Name == UserRoleEnum.User),
-                FkUserProfileInfo = newUserProfile
-            };
+                string passwordHash = Convert.ToBase64String(KeyDerivation.Pbkdf2(model.Password, salt, KeyDerivationPrf.HMACSHA1, 10000, 256 / 8));
 
-            _entities.User.Add(newUser);
-            _entities.SaveChanges();
+                var newUserProfile = new UserProfileInfo();
+
+                var newUser = new User
+                {
+                    Username = model.Username,
+                    RegistrationDate = DateTime.Now,
+                    PasswordHash = passwordHash,
+                    PasswordSalt = Convert.ToBase64String(salt),
+                    UserState = UserStateEnum.Active,
+                    Email = model.Email,
+                    FkUserRole = _entities.UserRole.First(item => item.Name == UserRoleEnum.User),
+                    FkUserProfileInfo = newUserProfile
+                };
+
+                _entities.User.Add(newUser);
+                _entities.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

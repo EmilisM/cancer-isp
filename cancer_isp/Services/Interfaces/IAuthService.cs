@@ -7,6 +7,6 @@ namespace cancer_isp.Services.Interfaces
     {
         User AuthUser(LoginModel model);
 
-        void RegisterUser(RegistrationModel model);
+        bool RegisterUser(RegistrationModel model);
     }
 }

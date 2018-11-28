@@ -103,9 +103,14 @@ namespace cancer_isp.Controllers
                 return View("SignUp");
             }
 
-            _authService.RegisterUser(model);
+            var success = _authService.RegisterUser(model);
 
-            return View("LogIn");
+            if (success)
+            {
+                TempData["success"] = "Registration successful !";
+            }
+
+            return View("SignUp");
         }
     }
 }
