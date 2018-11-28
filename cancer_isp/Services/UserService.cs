@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using cancer_isp.Models.Dbo;
 using cancer_isp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace cancer_isp.Services
             var user = _cancerIspContext.User
                 .Include(item => item.FkUserProfileInfo)
                 .Include(item => item.FkUserRole)
-                .FirstOrDefault(item => item.Username == username);
+                .FirstOrDefault(item => string.Compare(item.Username, username, StringComparison.Ordinal) == 0);
 
             return user;
         }

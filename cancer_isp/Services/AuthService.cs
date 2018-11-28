@@ -19,7 +19,7 @@ namespace cancer_isp.Services
 
         public User AuthUser(LoginModel model)
         {
-            var user = _entities.User.FirstOrDefault(item => item.Username == model.Username);
+            var user = _entities.User.FirstOrDefault(item => string.Compare(item.Username, model.Username, StringComparison.Ordinal) == 0);
 
             if (user == null || user.UserState == UserStateEnum.Blocked)
             {

@@ -15,10 +15,12 @@ namespace cancer_isp.Controllers
     public class LoginController : BaseController
     {
         private readonly IAuthService _authService;
+        private readonly IUserService _userService;
 
-        public LoginController(IAuthService loginService)
+        public LoginController(IAuthService loginService, IUserService userService)
         {
             _authService = loginService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -76,7 +78,7 @@ namespace cancer_isp.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(5)
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
             };
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -89,10 +91,19 @@ namespace cancer_isp.Controllers
         [AllowAnonymous]
         public IActionResult Register(RegistrationModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _authService.RegisterUser(model);
+                return View("SignUp");
             }
+
+            var user = _userService.GetUser(model.Username);
+
+            if (user != null)
+            {
+                return View("SignUp");
+            }
+
+            _authService.RegisterUser(model);
 
             return View("LogIn");
         }
