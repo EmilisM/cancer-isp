@@ -1,4 +1,4 @@
-﻿@model cancer_isp.Models.Dbo.User
+﻿@model cancer_isp.Models.ProfileViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -9,57 +9,65 @@
         <div class="row">
             <div class="col-sm">
                 <div class="card login-card">
-                    <h5 class="card-header">
-                        User info
-                    </h5>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="profile-field-title">Username</label>
-                            <br/>
-                            <span class="oi oi-brush" aria-hidden="true"></span>
-                            <label>@Model.Username</label>
+                    @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new {id = "profileEditForm"}))
+                    {
+                        <h5 class="card-header">
+                            User info
+                            <a id="editProfile" class="oi oi-pencil icon-right icon-pointer"></a>
+                            <a id="submitEditProfile" class="oi oi-check icon-right icon-pointer" hidden></a>
+                        </h5>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="profile-field-title">Username</label>
+                                <br/>
+                                @Html.DisplayTextFor(model => model.Username)
+                                @Html.HiddenFor(model => model.Username)
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">First name</label>
+                                <br/>
+                                <label name="@nameof(Model.FirstName)">@Model.FirstName</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Last name</label>
+                                <br/>
+                                <label name="@nameof(Model.LastName)">@Model.LastName</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Registration date</label>
+                                <br/>
+                                @Html.DisplayTextFor(model => model.RegistrationDate)
+                                @Html.HiddenFor(model => model.RegistrationDate)
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Description</label>
+                                <br/>
+                                <label id="Description">@Model.Description</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Birthdate</label>
+                                <br/>
+                                <label>@Model.Birthdate</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Phone number</label>
+                                <br/>
+                                <label>@Model.PhoneNumber</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Email</label>
+                                <br/>
+                                @Html.DisplayTextFor(model => model.Email)
+                                @Html.HiddenFor(model => model.Email)
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Karma points</label>
+                                <br/>
+                                @Html.DisplayTextFor(model => model.KarmaPoints)
+                                @Html.HiddenFor(model => model.KarmaPoints)
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">First name</label>
-                            <br/>
-                            <label>@Model.FkUserProfileInfo.FirstName</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Last name</label>
-                            <br/>
-                            <label>@Model.FkUserProfileInfo.LastName</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Registration date</label>
-                            <br/>
-                            <label>@Model.RegistrationDate</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Description</label>
-                            <br/>
-                            <label>@Model.FkUserProfileInfo.Description</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Birthdate</label>
-                            <br/>
-                            <label>@Model.FkUserProfileInfo.Birthdate</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Phone number</label>
-                            <br/>
-                            <label>@Model.FkUserProfileInfo.PhoneNumber</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Email</label>
-                            <br/>
-                            <label>@Model.Email</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Karma points</label>
-                            <br/>
-                            <label>@Model.KarmaPoints</label>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

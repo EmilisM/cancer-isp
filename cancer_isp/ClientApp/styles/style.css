@@ -12,3 +12,11 @@ body {
 .profile-field-title {
 	font-weight: bold;
 }
+
+.icon-right {
+	float: right;
+}
+
+.icon-pointer {
+	cursor: pointer;
+}

@@ -1,4 +1,5 @@
-﻿using cancer_isp.Services.Interfaces;
+﻿using cancer_isp.Models;
+using cancer_isp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +15,27 @@ namespace cancer_isp.Controllers
         }
 
         [Authorize]
+        [Route("profile")]
         public IActionResult Index()
         {
             var user = _userService.GetUser(Username);
+            var result = new ProfileViewModel(user);
 
-            return user == null ? View() : View(user);
+            return View(result);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(ProfileViewModel model)
+        {
+            var user = _userService.GetUser(Username);
+
+            user.FkUserProfileInfo.FirstName = model.FirstName;
+            user.FkUserProfileInfo.LastName = model.LastName;
+
+            _userService.SetUser(user);
+
+            return RedirectToAction("Index");
         }
     }
 }

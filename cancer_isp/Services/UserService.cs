@@ -24,5 +24,11 @@ namespace cancer_isp.Services
 
             return user;
         }
+
+        public void SetUser(User user)
+        {
+            _cancerIspContext.User.Update(user);
+            _cancerIspContext.SaveChanges();
+        }
     }
 }
