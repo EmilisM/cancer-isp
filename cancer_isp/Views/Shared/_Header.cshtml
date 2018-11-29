@@ -1,4 +1,4 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+﻿@using cancer_isp.Models.Dbo
 @{
     var action = ViewContext.RouteData.Values["Action"].ToString();
     var controller = ViewContext.RouteData.Values["Controller"].ToString();
@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav">
 
-            @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated)
             {
                 <li class="nav-item @(action == "Index" && controller == "Profile" ? "active" : "")">
                     <a class="nav-item nav-link" asp-action="Index" asp-controller="Profile">Profile</a>
@@ -37,6 +37,10 @@
                         <a class="dropdown-item" asp-action="Register" asp-controller="Artist">Register artist</a>
                     </div>
                 </li>
+                if (User.IsInRole(UserRoleEnum.Administrator.ToString()))
+                {
+                    <a class="nav-item nav-link @(controller == "Admin" ? "active" : "")" asp-action="Index" asp-controller="Admin">Admin panel</a>
+                }
                 <a class="nav-item nav-link" asp-action="SignOut" asp-controller="Login">Sign out</a>
             }
             else
