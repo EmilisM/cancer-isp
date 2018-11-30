@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using cancer_isp.Models;
-using cancer_isp.Models.Dbo;
 using cancer_isp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

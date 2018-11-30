@@ -3,7 +3,7 @@
 namespace cancer_isp.Controllers
 {
     public class ArtistController : BaseController
-	{
+    {
         public IActionResult Index()
         {
             return View();
@@ -18,5 +18,5 @@ namespace cancer_isp.Controllers
         {
             return View();
         }
-	}
+    }
 }
