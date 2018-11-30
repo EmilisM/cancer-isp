@@ -23,7 +23,7 @@ namespace cancer_isp.Services
         {
             var user = _userService.GetUser(model.Username);
 
-            if (user == null || user.UserState == UserStateEnum.Blocked || admin && user.FkUserRole.Name == UserRoleEnum.Administrator)
+            if (user == null || user.UserState == UserStateEnum.Blocked || admin && user.UserRole.Name == UserRoleEnum.Administrator)
             {
                 return null;
             }
@@ -56,8 +56,8 @@ namespace cancer_isp.Services
                     PasswordSalt = Convert.ToBase64String(salt),
                     UserState = UserStateEnum.Active,
                     Email = model.Email,
-                    FkUserRole = _entities.UserRole.First(item => item.Name == UserRoleEnum.User),
-                    FkUserProfileInfo = newUserProfile
+                    UserRole = _entities.UserRole.First(item => item.Name == UserRoleEnum.User),
+                    UserProfileInfo = newUserProfile
                 };
 
                 _entities.User.Add(newUser);

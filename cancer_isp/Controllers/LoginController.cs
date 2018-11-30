@@ -72,7 +72,7 @@ namespace cancer_isp.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, model.Username),
-                new Claim(ClaimTypes.Role, user.FkUserRole.Name.ToString())
+                new Claim(ClaimTypes.Role, user.UserRole.Name.ToString())
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

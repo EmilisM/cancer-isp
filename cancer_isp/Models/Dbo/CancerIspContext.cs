@@ -421,13 +421,13 @@ namespace cancer_isp.Models.Dbo
                     .HasColumnName("username")
                     .HasColumnType("varchar(255)");
 
-                entity.HasOne(d => d.FkUserProfileInfo)
+                entity.HasOne(d => d.UserProfileInfo)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.FkUserProfileInfoid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("completes");
 
-                entity.HasOne(d => d.FkUserRole)
+                entity.HasOne(d => d.UserRole)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.FkUserRoleid)
                     .OnDelete(DeleteBehavior.ClientSetNull)

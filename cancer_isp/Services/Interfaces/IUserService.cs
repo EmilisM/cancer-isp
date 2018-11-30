@@ -11,6 +11,6 @@ namespace cancer_isp.Services.Interfaces
         /// <returns></returns>
         User GetUser(string username);
 
-        void SetUser(User user);
+        void UpdateUser(User user);
     }
 }

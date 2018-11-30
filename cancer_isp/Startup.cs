@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
+using AutoMapper;
+using cancer_isp.Helpers;
 using cancer_isp.Models.Dbo;
 using cancer_isp.Services;
 using cancer_isp.Services.Interfaces;
@@ -50,6 +52,13 @@ namespace cancer_isp
                 .AddCookie();
 
             services.AddHttpContextAccessor();
+            var mappingConfig = new MapperConfiguration(config =>
+            {
+                config.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             DependencyConfigurations(services);
         }

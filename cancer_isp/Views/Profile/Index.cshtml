@@ -36,23 +36,23 @@
                             <div class="form-group">
                                 <label class="profile-field-title">Registration date</label>
                                 <br/>
-                                @Html.DisplayTextFor(model => model.RegistrationDate)
+                                <label>@Model.RegistrationDate.ToString("D")</label>
                                 @Html.HiddenFor(model => model.RegistrationDate)
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Description</label>
                                 <br/>
-                                <label id="Description">@Model.Description</label>
+                                <label name="@nameof(Model.Description)">@Model.Description</label>
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Birthdate</label>
                                 <br/>
-                                <label>@Model.Birthdate</label>
+                                <label name="@nameof(Model.Birthdate)">@Model.Birthdate.ToString("yyyy-MM-dd")</label>
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Phone number</label>
                                 <br/>
-                                <label>@Model.PhoneNumber</label>
+                                <label name="@nameof(Model.PhoneNumber)">@Model.PhoneNumber</label>
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Email</label>

@@ -24,8 +24,8 @@ namespace cancer_isp.Models.Dbo
         public int FkUserRoleid { get; set; }
         public int FkUserProfileInfoid { get; set; }
 
-        public UserProfileInfo FkUserProfileInfo { get; set; }
-        public UserRole FkUserRole { get; set; }
+        public UserProfileInfo UserProfileInfo { get; set; }
+        public UserRole UserRole { get; set; }
         public ICollection<Artist> Artist { get; set; }
         public ICollection<ArtistWork> ArtistWork { get; set; }
         public ICollection<Comment> Comment { get; set; }

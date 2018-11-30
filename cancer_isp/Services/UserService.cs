@@ -18,14 +18,14 @@ namespace cancer_isp.Services
         public User GetUser(string username)
         {
             var user = _cancerIspContext.User
-                .Include(item => item.FkUserProfileInfo)
-                .Include(item => item.FkUserRole)
+                .Include(item => item.UserProfileInfo)
+                .Include(item => item.UserRole)
                 .FirstOrDefault(item => string.Compare(item.Username, username, StringComparison.Ordinal) == 0);
 
             return user;
         }
 
-        public void SetUser(User user)
+        public void UpdateUser(User user)
         {
             _cancerIspContext.User.Update(user);
             _cancerIspContext.SaveChanges();
