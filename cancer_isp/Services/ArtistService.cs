@@ -35,6 +35,7 @@ namespace cancer_isp.Services
         public List<Occupation> GetOccupations()
         {
             var occupations = _cancerIspContext.Occupation.ToList();
+
             return occupations;
         }
     }

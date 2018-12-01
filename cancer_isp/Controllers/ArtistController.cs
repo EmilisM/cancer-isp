@@ -21,31 +21,31 @@ namespace cancer_isp.Controllers
             var image = _artistService.GetArtistImage(id);
             var occupations = _artistService.GetOccupations();
 
-            var artistViewModel = new ArtistViewModel();
-
-            artistViewModel.Artist = artist;
-            artistViewModel.Image = image;
-            artistViewModel.Occupations = occupations;
+            var artistViewModel = new ArtistViewModel
+            {
+                Artist = artist,
+                Image = image,
+                Occupations = occupations
+            };
 
             return View(artistViewModel);
         }
 
+        [HttpGet]
         [Route("artist/register")]
         public IActionResult Register()
         {
-            //var artist = _artistService.GetArtist(id);
-            //var image = _artistService.GetArtistImage(id);
             var occupations = _artistService.GetOccupations();
 
-            var artistViewModel = new ArtistViewModel();
-
-            //artistViewModel.Artist = artist;
-            //artistViewModel.Image = image;
-            artistViewModel.Occupations = occupations;
+            var artistViewModel = new ArtistViewModel
+            {
+                Occupations = occupations
+            };
 
             return View(artistViewModel);
         }
 
+        [HttpGet]
         [Route("artist/list")]
         public IActionResult List()
         {
@@ -55,8 +55,7 @@ namespace cancer_isp.Controllers
         [HttpPost]
         public IActionResult RegisterArtist(ArtistViewModel model)
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
-
     }
 }
