@@ -1,13 +1,13 @@
-﻿using System;
+﻿using cancer_isp.Models.Dbo;
+using cancer_isp.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using cancer_isp.Services.Interfaces;
-using cancer_isp.Models.Dbo;
-using Microsoft.EntityFrameworkCore;
 
 namespace cancer_isp.Services
 {
-    public class StatisticsService : IStatisticsService
+	public class StatisticsService : IStatisticsService
     {
         private readonly CancerIspContext _cancerIspContext;
 
@@ -19,7 +19,7 @@ namespace cancer_isp.Services
         public List<ArtistWork> GetLatestReleases()
         {
             var result = _cancerIspContext.ArtistWork
-                .Include(x=>x.FkImage)
+                .Include(x => x.FkImage)
                 .Where(x => x.CreationDate.Value.Month == DateTime.Now.Month)
                 .ToList();
 

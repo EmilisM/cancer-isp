@@ -1,25 +1,21 @@
-﻿using cancer_isp.Models.Dbo;
-using Microsoft.AspNetCore.Mvc;
-
-using AutoMapper;
-using cancer_isp.Models;
+﻿using cancer_isp.Models;
+using cancer_isp.Models.Dbo;
 using cancer_isp.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace cancer_isp.Controllers
 {
     public class HomeController : BaseController
     {
         private readonly IStatisticsService _statisticsService;
-        private readonly IMapper _mapper;
 
-        public HomeController(CancerIspContext context, IStatisticsService statisticsService, IMapper mapper)
+        public HomeController(CancerIspContext context, IStatisticsService statisticsService)
         {
             _statisticsService = statisticsService;
-            _mapper = mapper;
         }
 
         [Route("home")]
+        [HttpGet]
         public IActionResult Index()
         {
             var latestReleases = _statisticsService.GetLatestReleases();
