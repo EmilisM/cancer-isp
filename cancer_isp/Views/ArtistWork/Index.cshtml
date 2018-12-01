@@ -1,4 +1,6 @@
-﻿@{
+﻿@model cancer_isp.Models.ArtistWorkViewModel
+@{
+    
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -16,32 +18,32 @@
                         <div class="form-group">
                             <label class="profile-field-title">Artist(s)</label>
                             <br/>
-                            <label>Artist(s)</label>
+                            <label>@Model.Artists</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Work name</label>
                             <br/>
-                            <label>Work name</label>
+                            <label>@Model.ArtistWork.Name</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Creation date</label>
                             <br/>
-                            <label>Creation date</label>
+                            <label>@Model.ArtistWork.CreationDate</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Record label</label>
                             <br/>
-                            <label>Record label</label>
+                            <label>@Model.ArtistWork.RecordLabel</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Genres</label>
                             <br/>
-                            <label>Genres</label>
+                            <label>@Model.ArtistWork.FKGenre.Name</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Work type</label>
                             <br/>
-                            <label>Work type</label>
+                            <label>@Model.ArtistWork.FKGenre.FkWorkType.Name</label>
                         </div>
                     </div>
                 </div>
