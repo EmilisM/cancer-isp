@@ -28,6 +28,8 @@ namespace cancer_isp.Models.Dbo
         {
             modelBuilder.Entity<Artist>(entity =>
             {
+                entity.ToTable("artist");
+
                 entity.HasIndex(e => e.FkImageid)
                     .HasName("has_image");
 
@@ -96,6 +98,8 @@ namespace cancer_isp.Models.Dbo
             {
                 entity.HasKey(e => new { e.FkArtistWorkid, e.FkArtistid });
 
+                entity.ToTable("artistcreated");
+
                 entity.HasIndex(e => e.FkArtistid)
                     .HasName("who_is");
 
@@ -124,6 +128,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<ArtistWork>(entity =>
             {
+                entity.ToTable("artistwork");
+
                 entity.HasIndex(e => e.FKGenreid)
                     .HasName("is_of");
 
@@ -194,6 +200,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<Comment>(entity =>
             {
+                entity.ToTable("comment");
+
                 entity.HasIndex(e => e.FkArtistid)
                     .HasName("discusses");
 
@@ -239,6 +247,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<Genre>(entity =>
             {
+                entity.ToTable("genre");
+
                 entity.HasIndex(e => e.FkWorkTypeid)
                     .HasName("has_a");
 
@@ -271,6 +281,7 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<Image>(entity =>
             {
+                entity.ToTable("image");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -295,6 +306,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<Occupation>(entity =>
             {
+                entity.ToTable("occupation");
+
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasColumnType("int(11)");
@@ -306,6 +319,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<Rating>(entity =>
             {
+                entity.ToTable("rating");
+
                 entity.HasIndex(e => e.FkArtistWorkid)
                     .HasName("appreciates");
 
@@ -351,6 +366,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<Statistic>(entity =>
             {
+                entity.ToTable("statistic");
+
                 entity.HasIndex(e => e.FkRatingid)
                     .HasName("evaluated");
 
@@ -375,6 +392,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.ToTable("user");
+
                 entity.HasIndex(e => e.FkUserProfileInfoid)
                     .HasName("completes");
 
@@ -437,6 +456,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<UserProfileInfo>(entity =>
             {
+                entity.ToTable("userprofileinfo");
+
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasColumnType("int(11)");
@@ -464,6 +485,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<UserRole>(entity =>
             {
+                entity.ToTable("userrole");
+
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasColumnType("int(11)");
@@ -476,6 +499,8 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<WorkType>(entity =>
             {
+                entity.ToTable("worktype");
+
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasColumnType("int(11)");
