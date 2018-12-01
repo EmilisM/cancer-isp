@@ -1,5 +1,6 @@
 ﻿using cancer_isp.Models;
 using cancer_isp.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cancer_isp.Controllers
@@ -7,7 +8,6 @@ namespace cancer_isp.Controllers
     public class ArtistWorkController : BaseController
     {
         private readonly IArtistWorkService _artistWorkService;
-        private readonly IArtistService _artistService;
 
         public ArtistWorkController(IArtistWorkService artistWorkService)
         {
@@ -26,7 +26,7 @@ namespace cancer_isp.Controllers
                 artistsString += $"{item.Pseudonym}, ";
             }
 
-            var artistWorkViewModel = new ArtistWorkViewModel()
+            var artistWorkViewModel = new ArtistWorkViewModel
             {
                 Artists = artistsString,
                 ArtistWork = artistWork
@@ -35,6 +35,7 @@ namespace cancer_isp.Controllers
             return View(artistWorkViewModel);
         }
 
+        [Authorize]
         [Route("work/register")]
         public IActionResult Register()
         {
