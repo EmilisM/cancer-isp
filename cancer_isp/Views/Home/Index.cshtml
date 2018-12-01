@@ -1,3 +1,64 @@
-﻿@{
+﻿@model List<cancer_isp.Models.Dbo.ArtistWork>
+@{
     Layout = "_Layout";
 }
+
+<div class="row">
+    <div class="col-sm">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card login-card">
+                    <h5 class="card-header">
+                        Reviews
+                    </h5>
+                    <div class="card-body">                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm">
+        <div class="row">
+            <div class="col-sm">
+
+                <div class="card login-card">
+                    <h5 class="card-header">
+                        New ratings
+                    </h5>
+                    <div class="card-body">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <div class="card login-card">
+                    <h5 class="card-header">
+                        New realeases
+                    </h5>
+                    <ul class="list-group list-group-flush">
+                        <div class="list-group">
+                            @foreach (var item in Model)
+                            {
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">@item.Name</h5>
+                                        <small>@item.PublishDate.Value.ToString("dd/M/yyyy")</small>
+                                    </div>
+                                    <p class="mb-1">@item.Description</p>
+                                </a>
+                            }
+                        </div>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Previous</a>
+                        <a href="#" class="card-link">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
