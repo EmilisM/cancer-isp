@@ -22,9 +22,18 @@ namespace cancer_isp.Controllers
         [Route("home")]
         public IActionResult Index()
         {
-            var artisWorks = _statisticsService.GetLatestReleases();
+            var latestReleases = _statisticsService.GetLatestReleases();
+            var latestRatings = _statisticsService.GetLatestRatings();
+            var topRatedReleases = _statisticsService.GetTopRatedReleases();
 
-            return View("Index", artisWorks);
+            var statisticViewModel = new StatisticViewModel
+            {
+                LatestReleases = latestReleases,
+                LatestRatings = latestRatings,
+                TopRatedReleases = topRatedReleases
+            };
+
+            return View("Index", statisticViewModel);
         }
     }
 }
