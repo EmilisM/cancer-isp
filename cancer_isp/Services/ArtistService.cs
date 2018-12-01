@@ -1,6 +1,7 @@
 ﻿using cancer_isp.Models.Dbo;
 using cancer_isp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace cancer_isp.Services
@@ -22,6 +23,17 @@ namespace cancer_isp.Services
                 .FirstOrDefault(item => item.Id == id);
 
             return artist;
+        }
+
+        public Image GetArtistImage(int id) {
+            var image = _cancerIspContext.Image.FirstOrDefault(item => item.Id == id);
+
+            return image;
+        }
+
+        public List<Occupation> GetOccupations() {
+            var occupations = _cancerIspContext.Occupation.ToList();
+            return occupations;
         }
     }
 }

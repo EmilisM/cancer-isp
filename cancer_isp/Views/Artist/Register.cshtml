@@ -1,8 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Register";
+﻿@using cancer_isp.Models
+@using cancer_isp.Models.Dbo
+@model ArtistViewModel
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row">
     <div class="col-sm">
 
@@ -13,45 +14,42 @@
                         Artist registration
                     </h5>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label class="profile-field-title">Alias</label>
-                            <br/>
-                            <input class="form-control" placeholder="Alias">
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Full name</label>
-                            <br/>
-                            <input class="form-control" placeholder="Full name">
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Birthdate</label>
-                            <br/>
-                            <input class="form-control" placeholder="Birthdate">
-                        </div>
+                        @using (Html.BeginForm("RegisterArtist", "Artist", FormMethod.Post)) {
+                            <div class="form-group">
+                                <label class="profile-field-title">Alias</label>
+                                <br />
+                                @Html.TextBoxFor(model => model.Artist.Pseudonym, new { @class = "form-control", @placeholder = "Pseudonym" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Full name</label>
+                                <br />
+                                @Html.TextBoxFor(model => model.Artist.FullName, new { @class = "form-control", @placeholder = "Full Name" })
+
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Birthdate</label>
+                                <br />
+                                @Html.TextBoxFor(model => model.Artist.Birthdate, new { @class = "form-control", @placeholder = "Birthdate" })
+                            </div>
                         <div class="form-group">
                             <label class="profile-field-title">Occupation</label>
-                            <br/>
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
+                            <br />
+                            @Html.DropDownListFor(item => item.Occupations.First().Id, new SelectList(Model.Occupations, nameof(Occupation.Id), nameof(Occupation.Name)), new { @class = "form-control" })
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Occupation start date</label>
-                            <br/>
-                            <input class="form-control" placeholder="Occupation start date">
+                            <br />
+                            @Html.TextBoxFor(model => model.Artist.OccupationStartDate, new { @class = "form-control", @placeholder = "Occupation start date" })
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Description</label>
-                            <br/>
-                            <input class="form-control" placeholder="Description">
+                            <br />
+                            @Html.TextBoxFor(model => model.Artist.Description, new { @class = "form-control", @placeholder = "Description" })
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary mb-2">Submit</button>
                         </div>
+                        }
                     </div>
                 </div>
             </div>

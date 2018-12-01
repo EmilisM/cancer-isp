@@ -1,4 +1,5 @@
-﻿using cancer_isp.Services.Interfaces;
+﻿using cancer_isp.Models;
+using cancer_isp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cancer_isp.Controllers
@@ -12,22 +13,49 @@ namespace cancer_isp.Controllers
             _artistService = artistService;
         }
 
+        [HttpGet]
         [Route("artist/{id}")]
         public IActionResult Index(int id)
         {
             var artist = _artistService.GetArtist(id);
+            var image = _artistService.GetArtistImage(id);
+            var occupations = _artistService.GetOccupations();
 
-            return View();
+            var artistViewModel = new ArtistViewModel();
+
+            artistViewModel.Artist = artist;
+            artistViewModel.Image = image;
+            artistViewModel.Occupations = occupations;
+
+            return View(artistViewModel);
         }
 
+        [Route("artist/register")]
         public IActionResult Register()
         {
-            return View();
+            //var artist = _artistService.GetArtist(id);
+            //var image = _artistService.GetArtistImage(id);
+            var occupations = _artistService.GetOccupations();
+
+            var artistViewModel = new ArtistViewModel();
+
+            //artistViewModel.Artist = artist;
+            //artistViewModel.Image = image;
+            artistViewModel.Occupations = occupations;
+
+            return View(artistViewModel);
         }
 
+        [Route("artist/list")]
         public IActionResult List()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult RegisterArtist(ArtistViewModel model) {
+            return View();
+        }
+
     }
 }
