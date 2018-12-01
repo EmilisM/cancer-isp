@@ -53,7 +53,8 @@ namespace cancer_isp.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterArtist(ArtistViewModel model) {
+        public IActionResult RegisterArtist(ArtistViewModel model)
+        {
             return View();
         }
 

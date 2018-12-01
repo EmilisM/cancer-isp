@@ -25,13 +25,15 @@ namespace cancer_isp.Services
             return artist;
         }
 
-        public Image GetArtistImage(int id) {
+        public Image GetArtistImage(int id)
+        {
             var image = _cancerIspContext.Image.FirstOrDefault(item => item.Id == id);
 
             return image;
         }
 
-        public List<Occupation> GetOccupations() {
+        public List<Occupation> GetOccupations()
+        {
             var occupations = _cancerIspContext.Occupation.ToList();
             return occupations;
         }

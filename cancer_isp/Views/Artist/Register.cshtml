@@ -14,7 +14,8 @@
                         Artist registration
                     </h5>
                     <div class="card-body">
-                        @using (Html.BeginForm("RegisterArtist", "Artist", FormMethod.Post)) {
+                        @using (Html.BeginForm("RegisterArtist", "Artist", FormMethod.Post))
+                        {
                             <div class="form-group">
                                 <label class="profile-field-title">Alias</label>
                                 <br />
@@ -31,24 +32,24 @@
                                 <br />
                                 @Html.TextBoxFor(model => model.Artist.Birthdate, new { @class = "form-control", @placeholder = "Birthdate" })
                             </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Occupation</label>
-                            <br />
-                            @Html.DropDownListFor(item => item.Occupations.First().Id, new SelectList(Model.Occupations, nameof(Occupation.Id), nameof(Occupation.Name)), new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Occupation start date</label>
-                            <br />
-                            @Html.TextBoxFor(model => model.Artist.OccupationStartDate, new { @class = "form-control", @placeholder = "Occupation start date" })
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Description</label>
-                            <br />
-                            @Html.TextBoxFor(model => model.Artist.Description, new { @class = "form-control", @placeholder = "Description" })
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                        </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Occupation</label>
+                                <br />
+                                @Html.DropDownListFor(item => item.Occupations.First().Id, new SelectList(Model.Occupations, nameof(Occupation.Id), nameof(Occupation.Name)), new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Occupation start date</label>
+                                <br />
+                                @Html.TextBoxFor(model => model.Artist.OccupationStartDate, new { @class = "form-control", @placeholder = "Occupation start date" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Description</label>
+                                <br />
+                                @Html.TextBoxFor(model => model.Artist.Description, new { @class = "form-control", @placeholder = "Description" })
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                            </div>
                         }
                     </div>
                 </div>
