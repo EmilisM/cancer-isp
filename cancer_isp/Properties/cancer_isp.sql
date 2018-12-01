@@ -36,15 +36,16 @@ CREATE TABLE `artist` (
   `description` varchar(255) DEFAULT NULL,
   `occupation_start_date` date DEFAULT NULL,
   `fk_Occupationid` int(11) NOT NULL,
-  `fk_Userid` int(11) NOT NULL
+  `fk_Userid` int(11) NOT NULL,
+  `fk_Imageid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Sukurta duomenų kopija lentelei `artist`
 --
 
-INSERT INTO `artist` (`id`, `pseudonym`, `full_name`, `birthdate`, `description`, `occupation_start_date`, `fk_Occupationid`, `fk_Userid`) VALUES
-(2, 'VIENAS', 'VIENASVIENAS', '2018-12-03', 'VIENASVIENASVIENAS', '2018-12-12', 1, 3);
+INSERT INTO `artist` (`id`, `pseudonym`, `full_name`, `birthdate`, `description`, `occupation_start_date`, `fk_Occupationid`, `fk_Userid`, `fk_Imageid`) VALUES
+(2, 'VIENAS', 'VIENASVIENAS', '2018-12-03', 'VIENASVIENASVIENAS', '2018-12-12', 1, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -137,16 +138,15 @@ CREATE TABLE `image` (
   `photographer` varchar(255) DEFAULT NULL,
   `image_date` date DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
-  `image_name` varchar(255) DEFAULT NULL,
-  `fk_Artistid` int(11) NOT NULL
+  `image_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Sukurta duomenų kopija lentelei `image`
 --
 
-INSERT INTO `image` (`id`, `photographer`, `image_date`, `image_url`, `image_name`, `fk_Artistid`) VALUES
-(3, 'VANGOGH', '2018-12-02', 'https://images.medicinenet.com//images/slideshow/cancer-101-s1-what-is-cancer-cell.jpg', 'Muzikinis', 2);
+INSERT INTO `image` (`id`, `photographer`, `image_date`, `image_url`, `image_name`) VALUES
+(3, 'VANGOGH', '2018-12-02', 'https://images.medicinenet.com//images/slideshow/cancer-101-s1-what-is-cancer-cell.jpg', 'Muzikinis');
 
 -- --------------------------------------------------------
 
@@ -335,8 +335,7 @@ ALTER TABLE `genre`
 -- Indexes for table `image`
 --
 ALTER TABLE `image`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `is_captured_in` (`fk_Artistid`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `occupation`
@@ -470,7 +469,8 @@ ALTER TABLE `worktype`
 --
 ALTER TABLE `artist`
   ADD CONSTRAINT `has` FOREIGN KEY (`fk_Occupationid`) REFERENCES `occupation` (`id`),
-  ADD CONSTRAINT `registers` FOREIGN KEY (`fk_Userid`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `registers` FOREIGN KEY (`fk_Userid`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `has_image` FOREIGN KEY (`fk_Imageid`) REFERENCES `image` (`id`);
 
 --
 -- Apribojimai lentelei `artistcreated`
@@ -499,12 +499,6 @@ ALTER TABLE `comment`
 --
 ALTER TABLE `genre`
   ADD CONSTRAINT `has_a` FOREIGN KEY (`fk_WorkTypeid`) REFERENCES `worktype` (`id`);
-
---
--- Apribojimai lentelei `image`
---
-ALTER TABLE `image`
-  ADD CONSTRAINT `is_captured_in` FOREIGN KEY (`fk_Artistid`) REFERENCES `artist` (`id`);
 
 --
 -- Apribojimai lentelei `rating`

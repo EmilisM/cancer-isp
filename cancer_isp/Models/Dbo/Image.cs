@@ -8,6 +8,7 @@ namespace cancer_isp.Models.Dbo
         public Image()
         {
             ArtistWork = new HashSet<ArtistWork>();
+            Artist = new HashSet<Artist>();
         }
 
         public int Id { get; set; }
@@ -15,9 +16,8 @@ namespace cancer_isp.Models.Dbo
         public DateTime? ImageDate { get; set; }
         public string ImageUrl { get; set; }
         public string ImageName { get; set; }
-        public int FkArtistid { get; set; }
 
-        public Artist FkArtist { get; set; }
         public ICollection<ArtistWork> ArtistWork { get; set; }
+        public ICollection<Artist> Artist { get; set; }
     }
 }
