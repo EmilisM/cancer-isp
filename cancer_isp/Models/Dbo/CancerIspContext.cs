@@ -28,6 +28,9 @@ namespace cancer_isp.Models.Dbo
         {
             modelBuilder.Entity<Artist>(entity =>
             {
+                entity.HasIndex(e => e.FkImageid)
+                    .HasName("has_image");
+
                 entity.HasIndex(e => e.FkOccupationid)
                     .HasName("has");
 
@@ -45,6 +48,10 @@ namespace cancer_isp.Models.Dbo
                 entity.Property(e => e.Description)
                     .HasColumnName("description")
                     .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.FkImageid)
+                    .HasColumnName("fk_Imageid")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.FkOccupationid)
                     .HasColumnName("fk_Occupationid")
@@ -65,6 +72,12 @@ namespace cancer_isp.Models.Dbo
                 entity.Property(e => e.Pseudonym)
                     .HasColumnName("pseudonym")
                     .HasColumnType("varchar(255)");
+
+                entity.HasOne(d => d.FkImage)
+                    .WithMany(p => p.Artist)
+                    .HasForeignKey(d => d.FkImageid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("has_image");
 
                 entity.HasOne(d => d.FkOccupation)
                     .WithMany(p => p.Artist)
@@ -258,15 +271,9 @@ namespace cancer_isp.Models.Dbo
 
             modelBuilder.Entity<Image>(entity =>
             {
-                entity.HasIndex(e => e.FkArtistid)
-                    .HasName("is_captured_in");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.FkArtistid)
-                    .HasColumnName("fk_Artistid")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.ImageDate)
@@ -284,12 +291,6 @@ namespace cancer_isp.Models.Dbo
                 entity.Property(e => e.Photographer)
                     .HasColumnName("photographer")
                     .HasColumnType("varchar(255)");
-
-                entity.HasOne(d => d.FkArtist)
-                    .WithMany(p => p.Image)
-                    .HasForeignKey(d => d.FkArtistid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("is_captured_in");
             });
 
             modelBuilder.Entity<Occupation>(entity =>

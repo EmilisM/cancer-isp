@@ -9,7 +9,6 @@ namespace cancer_isp.Models.Dbo
         {
             ArtistCreated = new HashSet<ArtistCreated>();
             Comment = new HashSet<Comment>();
-            Image = new HashSet<Image>();
         }
 
         public int Id { get; set; }
@@ -20,11 +19,12 @@ namespace cancer_isp.Models.Dbo
         public DateTime? OccupationStartDate { get; set; }
         public int FkOccupationid { get; set; }
         public int FkUserid { get; set; }
+        public int FkImageid { get; set; }
 
+        public Image FkImage { get; set; }
         public Occupation FkOccupation { get; set; }
         public User FkUser { get; set; }
         public ICollection<ArtistCreated> ArtistCreated { get; set; }
         public ICollection<Comment> Comment { get; set; }
-        public ICollection<Image> Image { get; set; }
     }
 }
