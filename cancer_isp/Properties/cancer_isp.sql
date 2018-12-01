@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2018 at 12:57 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.12
+-- Generation Time: 2018 m. Grd 01 d. 15:34
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `artist`
+-- Sukurta duomenų struktūra lentelei `artist`
 --
 
 CREATE TABLE `artist` (
@@ -36,13 +36,21 @@ CREATE TABLE `artist` (
   `description` varchar(255) DEFAULT NULL,
   `occupation_start_date` date DEFAULT NULL,
   `fk_Occupationid` int(11) NOT NULL,
-  `fk_Userid` int(11) NOT NULL
+  `fk_Userid` int(11) NOT NULL,
+  `fk_Imageid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `artist`
+--
+
+INSERT INTO `artist` (`id`, `pseudonym`, `full_name`, `birthdate`, `description`, `occupation_start_date`, `fk_Occupationid`, `fk_Userid`, `fk_Imageid`) VALUES
+(2, 'VIENAS', 'VIENASVIENAS', '2018-12-03', 'VIENASVIENASVIENAS', '2018-12-12', 1, 3, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `artistcreated`
+-- Sukurta duomenų struktūra lentelei `artistcreated`
 --
 
 CREATE TABLE `artistcreated` (
@@ -50,10 +58,17 @@ CREATE TABLE `artistcreated` (
   `fk_Artistid` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Sukurta duomenų kopija lentelei `artistcreated`
+--
+
+INSERT INTO `artistcreated` (`fk_ArtistWorkid`, `fk_Artistid`) VALUES
+(4, 2);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `artistwork`
+-- Sukurta duomenų struktūra lentelei `artistwork`
 --
 
 CREATE TABLE `artistwork` (
@@ -69,10 +84,17 @@ CREATE TABLE `artistwork` (
   `fK_Genreid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Sukurta duomenų kopija lentelei `artistwork`
+--
+
+INSERT INTO `artistwork` (`id`, `name`, `creation_date`, `length_in_seconds`, `record_label`, `description`, `publish_date`, `fk_Userid`, `fk_Imageid`, `fK_Genreid`) VALUES
+(4, 'Keliones', '2018-12-12', 300, 'SUPERRECORDS', 'Gera daina', '2018-12-13', 3, 3, 1);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Sukurta duomenų struktūra lentelei `comment`
 --
 
 CREATE TABLE `comment` (
@@ -87,7 +109,7 @@ CREATE TABLE `comment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `genre`
+-- Sukurta duomenų struktūra lentelei `genre`
 --
 
 CREATE TABLE `genre` (
@@ -98,10 +120,17 @@ CREATE TABLE `genre` (
   `fk_WorkTypeid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Sukurta duomenų kopija lentelei `genre`
+--
+
+INSERT INTO `genre` (`id`, `name`, `year_of_discovery`, `description`, `fk_WorkTypeid`) VALUES
+(1, 'Elektronine', '2018-06-03', 'Good', 1);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `image`
+-- Sukurta duomenų struktūra lentelei `image`
 --
 
 CREATE TABLE `image` (
@@ -109,14 +138,20 @@ CREATE TABLE `image` (
   `photographer` varchar(255) DEFAULT NULL,
   `image_date` date DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
-  `image_name` varchar(255) DEFAULT NULL,
-  `fk_Artistid` int(11) NOT NULL
+  `image_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `image`
+--
+
+INSERT INTO `image` (`id`, `photographer`, `image_date`, `image_url`, `image_name`) VALUES
+(3, 'VANGOGH', '2018-12-02', 'https://images.medicinenet.com//images/slideshow/cancer-101-s1-what-is-cancer-cell.jpg', 'Muzikinis');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `occupation`
+-- Sukurta duomenų struktūra lentelei `occupation`
 --
 
 CREATE TABLE `occupation` (
@@ -124,10 +159,18 @@ CREATE TABLE `occupation` (
   `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Sukurta duomenų kopija lentelei `occupation`
+--
+
+INSERT INTO `occupation` (`id`, `name`) VALUES
+(1, 'Musician'),
+(2, 'Painter');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating`
+-- Sukurta duomenų struktūra lentelei `rating`
 --
 
 CREATE TABLE `rating` (
@@ -142,7 +185,7 @@ CREATE TABLE `rating` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `statistic`
+-- Sukurta duomenų struktūra lentelei `statistic`
 --
 
 CREATE TABLE `statistic` (
@@ -154,7 +197,7 @@ CREATE TABLE `statistic` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Sukurta duomenų struktūra lentelei `user`
 --
 
 CREATE TABLE `user` (
@@ -171,7 +214,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Sukurta duomenų kopija lentelei `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `registration_date`, `password_hash`, `password_salt`, `karma_points`, `email`, `user_state`, `fk_UserRoleid`, `fk_UserProfileInfoid`) VALUES
@@ -181,7 +224,7 @@ INSERT INTO `user` (`id`, `username`, `registration_date`, `password_hash`, `pas
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userprofileinfo`
+-- Sukurta duomenų struktūra lentelei `userprofileinfo`
 --
 
 CREATE TABLE `userprofileinfo` (
@@ -194,17 +237,22 @@ CREATE TABLE `userprofileinfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `userprofileinfo`
+-- Sukurta duomenų kopija lentelei `userprofileinfo`
 --
 
 INSERT INTO `userprofileinfo` (`id`, `description`, `first_name`, `last_name`, `birthdate`, `phone_number`) VALUES
-(1, 'My name is Admin', 'Admin', 'Adminovic', '1995-01-01', '+123456789'),
+(1, 'My name is Admin.', 'Admin', 'Adminovic', '1995-01-01', '+123456789'),
+(2, NULL, NULL, NULL, NULL, NULL),
+(3, NULL, NULL, NULL, NULL, NULL),
+(4, NULL, NULL, NULL, NULL, NULL),
+(5, NULL, NULL, NULL, NULL, NULL),
+(6, NULL, NULL, NULL, NULL, NULL),
 (7, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userrole`
+-- Sukurta duomenų struktūra lentelei `userrole`
 --
 
 CREATE TABLE `userrole` (
@@ -213,7 +261,7 @@ CREATE TABLE `userrole` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `userrole`
+-- Sukurta duomenų kopija lentelei `userrole`
 --
 
 INSERT INTO `userrole` (`id`, `name`) VALUES
@@ -224,7 +272,7 @@ INSERT INTO `userrole` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `worktype`
+-- Sukurta duomenų struktūra lentelei `worktype`
 --
 
 CREATE TABLE `worktype` (
@@ -233,7 +281,7 @@ CREATE TABLE `worktype` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `worktype`
+-- Sukurta duomenų kopija lentelei `worktype`
 --
 
 INSERT INTO `worktype` (`id`, `name`) VALUES
@@ -287,8 +335,7 @@ ALTER TABLE `genre`
 -- Indexes for table `image`
 --
 ALTER TABLE `image`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `is_captured_in` (`fk_Artistid`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `occupation`
@@ -345,13 +392,13 @@ ALTER TABLE `worktype`
 -- AUTO_INCREMENT for table `artist`
 --
 ALTER TABLE `artist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `artistwork`
 --
 ALTER TABLE `artistwork`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -363,19 +410,19 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `genre`
 --
 ALTER TABLE `genre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `occupation`
 --
 ALTER TABLE `occupation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -414,25 +461,26 @@ ALTER TABLE `worktype`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Apribojimai eksportuotom lentelėm
 --
 
 --
--- Constraints for table `artist`
+-- Apribojimai lentelei `artist`
 --
 ALTER TABLE `artist`
   ADD CONSTRAINT `has` FOREIGN KEY (`fk_Occupationid`) REFERENCES `occupation` (`id`),
-  ADD CONSTRAINT `registers` FOREIGN KEY (`fk_Userid`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `registers` FOREIGN KEY (`fk_Userid`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `has_image` FOREIGN KEY (`fk_Imageid`) REFERENCES `image` (`id`);
 
 --
--- Constraints for table `artistcreated`
+-- Apribojimai lentelei `artistcreated`
 --
 ALTER TABLE `artistcreated`
   ADD CONSTRAINT `created` FOREIGN KEY (`fk_ArtistWorkid`) REFERENCES `artistwork` (`id`),
   ADD CONSTRAINT `who_is` FOREIGN KEY (`fk_Artistid`) REFERENCES `artist` (`id`);
 
 --
--- Constraints for table `artistwork`
+-- Apribojimai lentelei `artistwork`
 --
 ALTER TABLE `artistwork`
   ADD CONSTRAINT `assigns` FOREIGN KEY (`fk_Userid`) REFERENCES `user` (`id`),
@@ -440,39 +488,33 @@ ALTER TABLE `artistwork`
   ADD CONSTRAINT `is_preserved` FOREIGN KEY (`fk_Imageid`) REFERENCES `image` (`id`);
 
 --
--- Constraints for table `comment`
+-- Apribojimai lentelei `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `discusses` FOREIGN KEY (`fk_Artistid`) REFERENCES `artist` (`id`),
   ADD CONSTRAINT `writes` FOREIGN KEY (`fk_Userid`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `genre`
+-- Apribojimai lentelei `genre`
 --
 ALTER TABLE `genre`
   ADD CONSTRAINT `has_a` FOREIGN KEY (`fk_WorkTypeid`) REFERENCES `worktype` (`id`);
 
 --
--- Constraints for table `image`
---
-ALTER TABLE `image`
-  ADD CONSTRAINT `is_captured_in` FOREIGN KEY (`fk_Artistid`) REFERENCES `artist` (`id`);
-
---
--- Constraints for table `rating`
+-- Apribojimai lentelei `rating`
 --
 ALTER TABLE `rating`
   ADD CONSTRAINT `appreciates` FOREIGN KEY (`fk_ArtistWorkid`) REFERENCES `artistwork` (`id`),
   ADD CONSTRAINT `evaluates` FOREIGN KEY (`fk_Userid`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `statistic`
+-- Apribojimai lentelei `statistic`
 --
 ALTER TABLE `statistic`
   ADD CONSTRAINT `evaluated` FOREIGN KEY (`fk_Ratingid`) REFERENCES `rating` (`id`);
 
 --
--- Constraints for table `user`
+-- Apribojimai lentelei `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `assigned` FOREIGN KEY (`fk_UserRoleid`) REFERENCES `userrole` (`id`),
