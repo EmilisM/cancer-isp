@@ -1,3 +1,33 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Dec 01, 2018 at 12:57 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `cancer_isp`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `artist`
+--
+
 CREATE TABLE `artist` (
   `id` int(11) NOT NULL,
   `pseudonym` varchar(255) DEFAULT NULL,
@@ -168,12 +198,7 @@ CREATE TABLE `userprofileinfo` (
 --
 
 INSERT INTO `userprofileinfo` (`id`, `description`, `first_name`, `last_name`, `birthdate`, `phone_number`) VALUES
-(1, 'My name is Admin.', 'Admin', 'Adminovic', '1995-01-01', '+123456789'),
-(2, NULL, NULL, NULL, NULL, NULL),
-(3, NULL, NULL, NULL, NULL, NULL),
-(4, NULL, NULL, NULL, NULL, NULL),
-(5, NULL, NULL, NULL, NULL, NULL),
-(6, NULL, NULL, NULL, NULL, NULL),
+(1, 'My name is Admin', 'Admin', 'Adminovic', '1995-01-01', '+123456789'),
 (7, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
