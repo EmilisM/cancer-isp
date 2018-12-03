@@ -1,4 +1,5 @@
-﻿@model cancer_isp.Models.LoginModel
+﻿@using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http
+@model cancer_isp.Models.LoginViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -17,8 +18,8 @@
                         @using (Html.BeginForm("SubmitLogIn", "Login", FormMethod.Post))
                         {
                             <div class="form-group">
-                                <label>Username or email</label>
-                                @Html.TextBoxFor(model => model.Username, new {@class = "form-control", @placeholder = "Username or email" })
+                                <label>Username</label>
+                                @Html.TextBoxFor(model => model.Username, new {@class = "form-control", @placeholder = "Username"})
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
@@ -44,13 +45,16 @@
                         Forgot your password?
                     </h5>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label>Username or email</label>
-                            <input class="form-control" placeholder="Username or email">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                        </div>
+                        @using (Html.BeginForm("RemindPassword", "Login", HttpMethod.Post))
+                        {
+                            <div class="form-group">
+                                <label>Email</label>
+                                @Html.TextBoxFor(model => model.Email, new {@class = "form-control", @placeholder = "Email"})
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary mb-2">Send a reminder</button>
+                            </div>
+                        }
                     </div>
                 </div>
 

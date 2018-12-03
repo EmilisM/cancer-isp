@@ -8,7 +8,6 @@ namespace cancer_isp.Models
         public string Username { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
@@ -16,7 +15,7 @@ namespace cancer_isp.Models
         public string RepeatPassword { get; set; }
 
         [Required]
-        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
     }
 }
