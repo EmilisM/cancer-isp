@@ -15,11 +15,13 @@ namespace cancer_isp.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
+        private readonly ISmtpService _smtpService;
 
-        public LoginController(IAuthService loginService, IUserService userService)
+        public LoginController(IAuthService loginService, IUserService userService, ISmtpService smtpService)
         {
             _authService = loginService;
             _userService = userService;
+            _smtpService = smtpService;
         }
 
         [HttpGet]
@@ -149,10 +151,12 @@ namespace cancer_isp.Controllers
 
             var valid = _userService.IsEmailValid(model.Email);
 
-            if (valid)
+            if (!valid)
             {
-                //Add sftp service
+                _smtpService.SendPasswordReminder(model.Email);
             }
+
+            TempData["success"] = "Email remainder sent !";
 
             return View("LogIn");
         }

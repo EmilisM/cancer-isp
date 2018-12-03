@@ -35,7 +35,7 @@ namespace cancer_isp.Services
         {
             var user = _cancerIspContext.User.FirstOrDefault(item => item.Email == email);
 
-            return user != null;
+            return user == null;
         }
     }
 }
