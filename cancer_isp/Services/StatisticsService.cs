@@ -1,4 +1,5 @@
-﻿using cancer_isp.Models.Dbo;
+﻿using cancer_isp.Models;
+using cancer_isp.Models.Dbo;
 using cancer_isp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace cancer_isp.Services
 {
-	public class StatisticsService : IStatisticsService
+    public class StatisticsService : IStatisticsService
     {
         private readonly CancerIspContext _cancerIspContext;
 
@@ -35,21 +36,30 @@ namespace cancer_isp.Services
             return result;
         }
 
-        public List<ArtistWork> GetTopRatedReleases()
+        public List<TopRatedArtistWorkModel> GetTopRatedReleases()
         {
-            var result = new List<ArtistWork>();
-            var ratings = _cancerIspContext.Rating
-                .Include(x => x.FkArtistWork).ToList();
+            var topScoresWithId = _cancerIspContext.Rating
+                .GroupBy(item => item.FkArtistWork)
+                .Select(item => new TopRatedArtistWorkModel
+                    {FkWork = item.Key, AvgScore = item.Average(m => m.Score)})
+                .OrderBy(item => item.AvgScore).ToList();
 
-            foreach (var rating in ratings)
-            {
-                if (rating.Score != null && rating.Score.Value > 5)
-                {
-                    result.Add(rating.FkArtistWork);
-                }
-            }
+            return topScoresWithId;
+        }
 
+        public List<Rating> GetUserRatings(int id)
+        {
+            var result = _cancerIspContext.Rating.Include(x => x.FkUser)
+                .Include(x => x.FkArtistWork)
+                .Where(x => x.FkUser.Id == id).ToList();
             return result;
+        }
+
+        public List<Rating> GetArtistWorkRatings(int workId)
+        {
+            return _cancerIspContext.Rating
+                .Include(x => x.FkArtistWork)
+                .Where(x => x.FkArtistWork.Id == workId).ToList();
         }
     }
 }

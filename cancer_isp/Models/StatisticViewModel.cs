@@ -10,6 +10,6 @@ namespace cancer_isp.Models
 
         public List<Rating> LatestRatings { get; set; }
 
-        public List<ArtistWork> TopRatedReleases { get; set; }
+        public List<TopRatedArtistWorkModel> TopRatedReleases { get; set; }
     }
 }
