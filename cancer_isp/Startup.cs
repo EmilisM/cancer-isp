@@ -70,6 +70,8 @@ namespace cancer_isp
             services.AddScoped<IArtistService, ArtistService>();
             services.AddScoped<IArtistWorkService, ArtistWorkService>();
             services.AddScoped<ISmtpService, SmtpService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IWorkRegistrationService, WorkRegistrationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

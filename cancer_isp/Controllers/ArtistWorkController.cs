@@ -8,10 +8,16 @@ namespace cancer_isp.Controllers
     public class ArtistWorkController : BaseController
     {
         private readonly IArtistWorkService _artistWorkService;
+        private readonly IGenreService _genreService;
+        private readonly IUserService _userService;
+        private readonly IWorkRegistrationService _workRegistrationService;
 
-        public ArtistWorkController(IArtistWorkService artistWorkService)
+        public ArtistWorkController(IArtistWorkService artistWorkService, IGenreService genreService, IUserService userService, IWorkRegistrationService workRegistrationService)
         {
             _artistWorkService = artistWorkService;
+            _genreService = genreService;
+            _userService = userService;
+            _workRegistrationService = workRegistrationService;
         }
 
         [Route("work/{id}")]
@@ -35,11 +41,36 @@ namespace cancer_isp.Controllers
             return View(artistWorkViewModel);
         }
 
+        [Route("work/list")]
+        public IActionResult List()
+        {
+            
+            return View();
+        }
+
         [Authorize]
         [Route("work/register")]
         public IActionResult Register()
         {
-            return View();
+            var artistWorkRegistrationModel = new ArtistWorkRegistrationModel
+            {
+                Genres = _genreService.GetGenres()
+            };
+            return View(artistWorkRegistrationModel);
+        }
+
+        [HttpPost]
+        public IActionResult RegisterWork(ArtistWorkRegistrationModel model)
+        {
+            var user = _userService.GetUser(Username);
+          /*  var valid = _workRegistrationService.CheckArtist(model);
+            if (!valid)
+            {
+                ModelState.AddModelError("Error", "Specified artist is not registered yet");
+                return View("List");
+            }*/
+            _workRegistrationService.RegisterWork(model, user);
+            return View("List");
         }
     }
 }

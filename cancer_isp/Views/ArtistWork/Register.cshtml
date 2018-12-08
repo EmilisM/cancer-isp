@@ -1,4 +1,7 @@
-﻿@{
+﻿@using cancer_isp.Models
+@using cancer_isp.Models.Dbo
+@model cancer_isp.Models.ArtistWorkRegistrationModel
+@{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -13,45 +16,44 @@
                         Artist work registration
                     </h5>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label class="profile-field-title">Artist</label>
-                            <br/>
-                            <input class="form-control" placeholder="Artist">
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Work name</label>
-                            <br/>
-                            <input class="form-control" placeholder="Work name">
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Creation date</label>
-                            <br/>
-                            <input class="form-control" placeholder="Creation date">
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Genre</label>
-                            <br/>
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Record label</label>
-                            <br/>
-                            <input class="form-control" placeholder="Record label">
-                        </div>
-                        <div class="form-group">
-                            <label class="profile-field-title">Description</label>
-                            <br/>
-                            <input class="form-control" placeholder="Description">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                        </div>
+                        @using (Html.BeginForm("RegisterWork", "ArtistWork", FormMethod.Post))
+                        {
+                            <div class="form-group">
+                                <label class="profile-field-title">Artist</label>
+                                @Html.TextBoxFor(model => model.Artist, new { @class = "form-control", @placeholder = "Artist" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Work name</label>
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Creation date</label>
+                                @Html.TextBoxFor(model => model.CreationDate, new { @class = "form-control", @placeholder = "Creation date" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Publish date</label>
+                                @Html.TextBoxFor(model => model.PublishDate, new { @class = "form-control", @placeholder = "Publish date" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Length in seconds</label>
+                                @Html.TextBoxFor(model => model.Length, new { @class = "form-control", @placeholder = "Length" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Genre</label>
+                                @Html.DropDownListFor(model => model.Genres.First().Id, new SelectList(Model.Genres, nameof(Genre.Id), nameof(Genre.Name)), new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Record label</label>
+                                @Html.TextBoxFor(model => model.RecordLabel, new { @class = "form-control", @placeholder = "Record label" })
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Description</label>
+                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @placeholder = "Description" })
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
