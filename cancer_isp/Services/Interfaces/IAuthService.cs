@@ -5,7 +5,7 @@ namespace cancer_isp.Services.Interfaces
 {
     public interface IAuthService
     {
-        User AuthUser(LoginModel model, bool admin = false);
+        User AuthUser(LoginViewModel model, bool admin = false);
 
         bool RegisterUser(RegistrationModel model);
     }

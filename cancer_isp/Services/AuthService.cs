@@ -19,7 +19,7 @@ namespace cancer_isp.Services
             _userService = userService;
         }
 
-        public User AuthUser(LoginModel model, bool admin = false)
+        public User AuthUser(LoginViewModel model, bool admin = false)
         {
             var user = _userService.GetUser(model.Username);
 

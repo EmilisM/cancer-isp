@@ -12,5 +12,7 @@ namespace cancer_isp.Services.Interfaces
         User GetUser(string username);
 
         void UpdateUser(User user);
+
+        bool IsEmailValid(string email);
     }
 }
