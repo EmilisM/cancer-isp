@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using cancer_isp.Models.Dbo;
 
 namespace cancer_isp.Models
 {
@@ -13,5 +15,7 @@ namespace cancer_isp.Models
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public int KarmaPoints { get; set; }
+
+        public List<Rating> UserRatings { get; set; }
     }
 }

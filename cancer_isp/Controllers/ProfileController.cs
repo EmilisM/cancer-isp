@@ -10,11 +10,13 @@ namespace cancer_isp.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IStatisticsService _statisticsService;
 
-        public ProfileController(IUserService userService, IMapper mapper)
+        public ProfileController(IUserService userService, IMapper mapper, IStatisticsService statisticsService)
         {
             _userService = userService;
             _mapper = mapper;
+            _statisticsService = statisticsService;
         }
 
         [Authorize]
@@ -23,6 +25,8 @@ namespace cancer_isp.Controllers
         {
             var user = _userService.GetUser(Username);
             var result = _mapper.Map<ProfileViewModel>(user);
+            var userRatings = _statisticsService.GetUserRatings(user.Id);
+            result.UserRatings = userRatings;
 
             return View(result);
         }

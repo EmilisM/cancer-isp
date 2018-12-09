@@ -69,6 +69,7 @@ namespace cancer_isp
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IArtistService, ArtistService>();
             services.AddScoped<IArtistWorkService, ArtistWorkService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<ISmtpService, SmtpService>();
         }
 
