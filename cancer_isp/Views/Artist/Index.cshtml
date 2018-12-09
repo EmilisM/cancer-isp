@@ -1,7 +1,7 @@
-﻿@{
+﻿@model cancer_isp.Models.ArtistViewModel
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row">
     <div class="col-sm">
 
@@ -14,33 +14,33 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="profile-field-title">Alias</label>
-                            <br/>
-                            <label>Alias</label>
+                            <br />
+                            <label>@Model.Artist.Pseudonym</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Full name</label>
-                            <br/>
-                            <label>Full name</label>
+                            <br />
+                            <label>@Model.Artist.FullName</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Birthdate</label>
-                            <br/>
-                            <label>Birthdate</label>
+                            <br />
+                            <label>@Model.Artist.Birthdate</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Occupation</label>
-                            <br/>
-                            <label>Occupation</label>
+                            <br />
+                            <label>@Model.Artist.FkOccupation.Name</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Occupation start date</label>
-                            <br/>
-                            <label>Occupation start date</label>
+                            <br />
+                            <label>@Model.Artist.OccupationStartDate</label>
                         </div>
                         <div class="form-group">
                             <label class="profile-field-title">Description</label>
-                            <br/>
-                            <label>Description</label>
+                            <br />
+                            <label>@Model.Artist.Description</label>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                 Image
             </h5>
             <div class="card-body">
-                Image
+                @Model.Image.ImageUrl
             </div>
         </div>
 

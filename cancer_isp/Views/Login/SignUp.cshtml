@@ -18,19 +18,19 @@
                         {
                             <div class="form-group">
                                 <label>Username</label>
-                                @Html.TextBoxFor(model => model.Username, new {@class = "form-control", @placeholder = "Username"})
+                                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @placeholder = "Username" })
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                @Html.TextBoxFor(model => model.Email, new {@class = "form-control", @placeholder = "Email"})
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email" })
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                @Html.TextBoxFor(model => model.Password, new {@class = "form-control", @placeholder = "Password", @type = "password"})
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Password", @type = "password" })
                             </div>
                             <div class="form-group">
                                 <label>Repeat password</label>
-                                @Html.TextBoxFor(model => model.RepeatPassword, new {@class = "form-control", @placeholder = "Repeat password", @type = "password"})
+                                @Html.TextBoxFor(model => model.RepeatPassword, new { @class = "form-control", @placeholder = "Repeat password", @type = "password" })
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mb-2">Sign up</button>

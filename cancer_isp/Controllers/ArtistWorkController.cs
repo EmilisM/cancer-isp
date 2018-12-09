@@ -11,13 +11,15 @@ namespace cancer_isp.Controllers
         private readonly IGenreService _genreService;
         private readonly IUserService _userService;
         private readonly IWorkRegistrationService _workRegistrationService;
+        private readonly IStatisticsService _statisticsService;
 
-        public ArtistWorkController(IArtistWorkService artistWorkService, IGenreService genreService, IUserService userService, IWorkRegistrationService workRegistrationService)
+        public ArtistWorkController(IArtistWorkService artistWorkService, IGenreService genreService, IUserService userService, IWorkRegistrationService workRegistrationService, IStatisticsService statisticsService)
         {
             _artistWorkService = artistWorkService;
             _genreService = genreService;
             _userService = userService;
             _workRegistrationService = workRegistrationService;
+            _statisticsService = statisticsService;
         }
 
         [Route("work/{id}")]
@@ -25,6 +27,7 @@ namespace cancer_isp.Controllers
         {
             var artistWork = _artistWorkService.GetArtistWork(id);
             var artists = _artistWorkService.GetArtistWorkCreators(id);
+            var ratings = _statisticsService.GetArtistWorkRatings(id);
 
             var artistsString = "";
             foreach (var item in artists)
@@ -35,7 +38,8 @@ namespace cancer_isp.Controllers
             var artistWorkViewModel = new ArtistWorkViewModel
             {
                 Artists = artistsString,
-                ArtistWork = artistWork
+                ArtistWork = artistWork,
+                ArtistWorkRatings = ratings
             };
 
             return View(artistWorkViewModel);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using cancer_isp.Models;
+using cancer_isp.Models.Api;
 using cancer_isp.Models.Dbo;
 
 namespace cancer_isp.Helpers
@@ -21,6 +22,12 @@ namespace cancer_isp.Helpers
                 .ForPath(m => m.UserProfileInfo.Birthdate, o => o.MapFrom(m => m.Birthdate))
                 .ForPath(m => m.UserProfileInfo.Description, o => o.MapFrom(m => m.Description))
                 .ForPath(m => m.UserProfileInfo.PhoneNumber, o => o.MapFrom(m => m.PhoneNumber));
+
+            CreateMap<Rating, UserRatingModel>()
+                .ForMember(prop => prop.WorkName, source => source.MapFrom(m => m.FkArtistWork.Name));
+
+            CreateMap<Rating, WorkRatingModel>();
+            CreateMap<ArtistWork, ArtistWorkModel>();
         }
     }
 }
