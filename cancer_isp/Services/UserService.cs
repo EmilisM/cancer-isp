@@ -30,5 +30,12 @@ namespace cancer_isp.Services
             _cancerIspContext.User.Update(user);
             _cancerIspContext.SaveChanges();
         }
+
+        public bool IsEmailValid(string email)
+        {
+            var user = _cancerIspContext.User.FirstOrDefault(item => item.Email == email);
+
+            return user == null;
+        }
     }
 }

@@ -15,11 +15,13 @@ namespace cancer_isp.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
+        private readonly ISmtpService _smtpService;
 
-        public LoginController(IAuthService loginService, IUserService userService)
+        public LoginController(IAuthService loginService, IUserService userService, ISmtpService smtpService)
         {
             _authService = loginService;
             _userService = userService;
+            _smtpService = smtpService;
         }
 
         [HttpGet]
@@ -53,10 +55,22 @@ namespace cancer_isp.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> SubmitLogIn(LoginModel model)
+        public async Task<IActionResult> SubmitLogIn(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
+                return View("LogIn");
+            }
+
+            if (model.Username == null)
+            {
+                ModelState.AddModelError("Error", "Username is not specified");
+                return View("LogIn");
+            }
+
+            if (model.Password == null)
+            {
+                ModelState.AddModelError("Error", "Password is not specified");
                 return View("LogIn");
             }
 
@@ -64,7 +78,7 @@ namespace cancer_isp.Controllers
 
             if (user == null)
             {
-                //Add error handling
+                ModelState.AddModelError("Error", "User not found");
                 return View("LogIn");
             }
 
@@ -96,9 +110,17 @@ namespace cancer_isp.Controllers
             }
 
             var user = _userService.GetUser(model.Username);
+            var valid = _userService.IsEmailValid(model.Email);
+
+            if (!valid)
+            {
+                ModelState.AddModelError("Error", "Email is already taken");
+                return View("SignUp");
+            }
 
             if (user != null)
             {
+                ModelState.AddModelError("Error", "Username is already taken");
                 return View("SignUp");
             }
 
@@ -110,6 +132,33 @@ namespace cancer_isp.Controllers
             }
 
             return View("SignUp");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult RemindPassword(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("LogIn");
+            }
+
+            if (model.Email == null)
+            {
+                ModelState.AddModelError("Error", "Email is not specified");
+                return View("LogIn");
+            }
+
+            var valid = _userService.IsEmailValid(model.Email);
+
+            if (!valid)
+            {
+                _smtpService.SendPasswordReminder(model.Email);
+            }
+
+            TempData["success"] = "Email remainder sent !";
+
+            return View("LogIn");
         }
     }
 }
