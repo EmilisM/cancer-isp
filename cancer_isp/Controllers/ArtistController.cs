@@ -23,8 +23,7 @@ namespace cancer_isp.Controllers
             _artistWorkService = artistWorkService;
         }
 
-        [HttpGet]
-        [Route("artist/{id}")]
+        [Route("artists/{id}")]
         public IActionResult Index(int id)
         {
             var artist = _artistService.GetArtist(id);
@@ -45,7 +44,7 @@ namespace cancer_isp.Controllers
         }
 
         [HttpGet]
-        [Route("artist/register")]
+        [Route("artists/register")]
         public IActionResult Register()
         {
             var occupations = _artistService.GetOccupations();
@@ -58,11 +57,21 @@ namespace cancer_isp.Controllers
             return View(artistRegistrationModel);
         }
 
-        [HttpGet]
-        [Route("artist/list")]
+        [Route("artists/list")]
         public IActionResult List()
         {
-            return View();
+            return View(new ArtistFilter { Artists = null });
+        }
+
+        [HttpGet]
+        public IActionResult Filter(ArtistFilter filter)
+        {
+            var result = new ArtistFilter
+            {
+                Artists = _artistService.GetArtists(filter.Pseudonym)
+            };
+
+            return View("List", result);
         }
 
         [HttpPost]

@@ -10,5 +10,7 @@ namespace cancer_isp.Services.Interfaces
         bool InsertNewArtist(Artist model);
         List<Comment> GetArtistComments(int artistId);
         Artist GetArtist(string name);
+        List<Artist> GetArtists();
+        List<Artist> GetArtists(string pseudonym);
     }
 }

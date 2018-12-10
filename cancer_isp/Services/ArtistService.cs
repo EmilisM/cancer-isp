@@ -37,7 +37,23 @@ namespace cancer_isp.Services
             return artist;
         }
 
-		public List<Occupation> GetOccupations()
+        public List<Artist> GetArtists(string pseudonym)
+        {
+            var artists = _cancerIspContext.Artist
+                .Include(item => item.FkOccupation)
+                .Where(item => item.Pseudonym.Contains(pseudonym))
+                .ToList();
+            return artists;
+        }
+
+        public List<Artist> GetArtists()
+        {
+            var artists = _cancerIspContext.Artist.ToList();
+
+            return artists;
+        }
+
+        public List<Occupation> GetOccupations()
         {
             var occupations = _cancerIspContext.Occupation.ToList();
 
