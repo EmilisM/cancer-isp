@@ -19,12 +19,12 @@
                         @using (Html.BeginForm("ChangeRoles", "Admin", FormMethod.Post))
                         {
                             <div class="form-group">
-                                <label class="profile-field-title">Full name</label>
+                                <label class="profile-field-title">Id</label>
                                 <br/>
-                                @Html.TextBoxFor(model => model.Id, new {@class = "form-control", @placeholder = "Full Name"})
+                                @Html.TextBoxFor(model => model.Id, new {@class = "form-control", @placeholder = "Id"})
                             </div>
                             <div class="form-group">
-                                <label class="profile-field-title">Birthdate</label>
+                                <label class="profile-field-title">Role</label>
                                 <br/>
                                 @Html.DropDownListFor(item => item.Role, Html.GetEnumSelectList(typeof(UserRoleEnum)), new {@class = "form-control"})
                             </div>
