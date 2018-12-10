@@ -212,7 +212,7 @@ namespace cancer_isp.Models.Dbo
                     .HasColumnName("id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Comment1)
+                entity.Property(e => e.CommentContent)
                     .HasColumnName("comment")
                     .HasColumnType("varchar(255)");
 

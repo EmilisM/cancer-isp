@@ -10,9 +10,7 @@ namespace cancer_isp.Models
 
         public string Name { get; set; }
 
-        public DateTime CreationDate { get; set; }
-
-        public int Length { get; set; }
+        public int LengthInSeconds { get; set; }
 
         public string RecordLabel { get; set; }
 
@@ -20,6 +18,10 @@ namespace cancer_isp.Models
 
         public DateTime PublishDate { get; set; }
 
+        public int GenreId { get; set; }
+
         public List<Genre> Genres { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

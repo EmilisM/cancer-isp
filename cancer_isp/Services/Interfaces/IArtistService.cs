@@ -6,9 +6,9 @@ namespace cancer_isp.Services.Interfaces
     public interface IArtistService
     {
         Artist GetArtist(int id);
-
-        Image GetArtistImage(int id);
-
         List<Occupation> GetOccupations();
+        bool InsertNewArtist(Artist model);
+        List<Comment> GetArtistComments(int artistId);
+        Artist GetArtist(string name);
     }
 }

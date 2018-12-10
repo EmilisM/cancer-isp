@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace cancer_isp.Services
 {
     public class ArtistWorkService : IArtistWorkService
@@ -36,6 +35,16 @@ namespace cancer_isp.Services
                 .Select(item => item.FkArtist).ToList();
 
             return creators;
+        }
+
+        public List<ArtistWork> GetArtistWorksForArtist(int artistId)
+        {
+            var aristWorks = _cancerIspContext.ArtistCreated
+                .Where(item => item.FkArtistid == artistId)
+                .Select(item => item.FkArtistWork)
+                .ToList();
+
+            return aristWorks;
         }
     }
 }

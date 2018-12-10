@@ -1,16 +1,26 @@
-﻿using cancer_isp.Models;
+﻿using AutoMapper;
+using cancer_isp.Models;
+using cancer_isp.Models.Dbo;
 using cancer_isp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace cancer_isp.Controllers
 {
     public class ArtistController : BaseController
     {
         private readonly IArtistService _artistService;
+        private readonly IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly IArtistWorkService _artistWorkService;
 
-        public ArtistController(IArtistService artistService)
+        public ArtistController(IArtistService artistService, IMapper mapper, IUserService userService,
+            IArtistWorkService artistWorkService)
         {
             _artistService = artistService;
+            _mapper = mapper;
+            _userService = userService;
+            _artistWorkService = artistWorkService;
         }
 
         [HttpGet]
@@ -18,14 +28,17 @@ namespace cancer_isp.Controllers
         public IActionResult Index(int id)
         {
             var artist = _artistService.GetArtist(id);
-            var image = _artistService.GetArtistImage(id);
             var occupations = _artistService.GetOccupations();
+
+            var comments = _artistService.GetArtistComments(artist.Id);
+            var artistWorks = _artistWorkService.GetArtistWorksForArtist(artist.Id);
 
             var artistViewModel = new ArtistViewModel
             {
                 Artist = artist,
-                Image = image,
-                Occupations = occupations
+                Occupations = occupations,
+                Comments = comments,
+                ArtistWorks = artistWorks
             };
 
             return View(artistViewModel);
@@ -37,12 +50,12 @@ namespace cancer_isp.Controllers
         {
             var occupations = _artistService.GetOccupations();
 
-            var artistViewModel = new ArtistViewModel
+            var artistRegistrationModel = new ArtistRegistrationModel
             {
                 Occupations = occupations
             };
 
-            return View(artistViewModel);
+            return View(artistRegistrationModel);
         }
 
         [HttpGet]
@@ -53,9 +66,40 @@ namespace cancer_isp.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterArtist(ArtistViewModel model)
+        public IActionResult RegisterArtist(ArtistRegistrationModel model)
         {
-            return RedirectToAction("Index", "Home");
+            if (!ModelState.IsValid)
+            {
+                var result = _artistService.GetOccupations();
+                model.Occupations = result;
+
+                return View("Register", model);
+            }
+
+            var artist = _mapper.Map<Artist>(model);
+
+            var user = _userService.GetUser(Username);
+
+            if (user == null)
+            {
+                return RedirectToAction("LogIn", "Login");
+            }
+
+            artist.FkUserid = user.Id;
+            artist.FkImage = new Image
+            {
+                ImageDate = DateTime.Now,
+                ImageUrl = model.ImageUrl
+            };
+
+            var success = _artistService.InsertNewArtist(artist);
+
+            if (success)
+            {
+                TempData["success"] = "Artist registration successful !";
+            }
+
+            return RedirectToAction("Register");
         }
     }
 }

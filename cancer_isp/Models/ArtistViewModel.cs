@@ -7,8 +7,10 @@ namespace cancer_isp.Models
     {
         public Artist Artist { get; set; }
 
-        public Image Image { get; set; }
-
         public List<Occupation> Occupations { get; set; }
+
+        public List<Comment> Comments { get; set; }
+
+        public List<ArtistWork> ArtistWorks { get; set; }
     }
 }

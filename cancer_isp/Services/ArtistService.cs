@@ -20,23 +20,50 @@ namespace cancer_isp.Services
             var artist = _cancerIspContext.Artist
                 .Include(item => item.FkOccupation)
                 .Include(item => item.FkUser)
+                .Include(item => item.FkImage)
                 .FirstOrDefault(item => item.Id == id);
 
             return artist;
         }
 
-        public Image GetArtistImage(int id)
+        public Artist GetArtist(string name)
         {
-            var image = _cancerIspContext.Image.FirstOrDefault(item => item.Id == id);
+            var artist = _cancerIspContext.Artist
+                .Include(item => item.FkOccupation)
+                .Include(item => item.FkUser)
+                .Include(item => item.FkImage)
+                .FirstOrDefault(item => item.FullName.Contains(name));
 
-            return image;
+            return artist;
         }
 
-        public List<Occupation> GetOccupations()
+		public List<Occupation> GetOccupations()
         {
             var occupations = _cancerIspContext.Occupation.ToList();
 
             return occupations;
+        }
+
+        public bool InsertNewArtist(Artist model)
+        {
+            try
+            {
+                _cancerIspContext.Artist.Add(model);
+                _cancerIspContext.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public List<Comment> GetArtistComments(int artistId)
+        {
+            var comments = _cancerIspContext.Comment.Where(item => item.FkArtistid == artistId).ToList();
+
+            return comments;
         }
     }
 }

@@ -1,7 +1,5 @@
 using cancer_isp.Models.Dbo;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace cancer_isp.Models
 {

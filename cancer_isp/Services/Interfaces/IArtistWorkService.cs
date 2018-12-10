@@ -7,5 +7,6 @@ namespace cancer_isp.Services.Interfaces
     {
         ArtistWork GetArtistWork(int id);
         List<Artist> GetArtistWorkCreators(int artistWorkId);
+        List<ArtistWork> GetArtistWorksForArtist(int artistId);
     }
 }

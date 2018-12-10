@@ -28,6 +28,14 @@ namespace cancer_isp.Helpers
 
             CreateMap<Rating, WorkRatingModel>();
             CreateMap<ArtistWork, ArtistWorkModel>();
+
+            CreateMap<Artist, ArtistRegistrationModel>();
+            CreateMap<ArtistRegistrationModel, Artist>()
+                .ForMember(src => src.FkOccupationid, dest => dest.MapFrom(o => o.OccupationId));
+
+            CreateMap<ArtistWork, ArtistWorkRegistrationModel>();
+            CreateMap<ArtistWorkRegistrationModel, ArtistWork>()
+                .ForMember(dest => dest.FKGenreid, source => source.MapFrom(m => m.GenreId));
         }
     }
 }

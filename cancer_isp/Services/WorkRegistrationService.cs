@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using cancer_isp.Models;
 using cancer_isp.Models.Dbo;
 using cancer_isp.Services.Interfaces;
 
@@ -16,61 +15,45 @@ namespace cancer_isp.Services
             _entities = entities;
         }
 
-        public bool CheckArtist(ArtistWorkRegistrationModel model)
+        public bool CheckIfArtistExists(string name)
         {
-            var artist = _entities.Artist.Where(item => item.FullName.Contains(model.Artist)).FirstOrDefault();
-            if (artist == null)
-            {
-                return false;
-            }
-            else return true;
+            var artist = _entities.Artist.FirstOrDefault(item => item.FullName.Contains(name));
+
+            return artist != null;
         }
 
-        public bool RegisterWork(ArtistWorkRegistrationModel model, User user)
+        public bool RegisterWork(ArtistWork work, Artist artist)
         {
-            var artist = _entities.Artist.Where(item => item.FullName.Contains(model.Artist)).FirstOrDefault();
-            
             try
             {
-                var newWork = new ArtistWork
+                _entities.ArtistWork.Add(work);
+
+                _entities.SaveChanges();
+
+                var addedWork = _entities.ArtistWork
+                    .FirstOrDefault(item => item.Name.Contains(work.Name));
+
+                if (addedWork != null)
                 {
-
-                    Name = model.Name,
-                    CreationDate = model.CreationDate,
-                    LengthInSeconds = model.Length,
-                    RecordLabel = model.RecordLabel,
-                    Description = model.Description,
-                    PublishDate = model.PublishDate,
-                    FkUserid = user.Id,
-                    FkImageid = 3,
-                    FKGenreid = 1
-                    
-
-                };
-
-                _entities.ArtistWork.Add(newWork);
-               /* if (artist != null)
-                {
-                    var work = _entities.ArtistWork
-                    .Where(item => item.Name == model.Name && item.CreationDate == model.CreationDate && item.LengthInSeconds == model.Length).FirstOrDefault();
-
-                    var artistCreatedWork = new ArtistCreated
+                    var artistCreated = new ArtistCreated
                     {
-                        FkArtistid = artist.Id,
-                        FkArtistWorkid = work.Id
+                        FkArtistWorkid = addedWork.Id,
+                        FkArtistid = artist.Id
                     };
 
-                    _entities.ArtistCreated.Add(artistCreatedWork);
-                }*/
-                
-                _entities.SaveChanges();
+                    _entities.ArtistCreated.Add(artistCreated);
+
+                    _entities.SaveChanges();
+
+                    return true;
+                }
             }
             catch (Exception)
             {
                 return false;
             }
 
-            return true;
+            return false;
         }
     }
 }

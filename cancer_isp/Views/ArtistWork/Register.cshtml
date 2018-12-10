@@ -1,10 +1,10 @@
-﻿@using cancer_isp.Models
-@using cancer_isp.Models.Dbo
+﻿@using cancer_isp.Models.Dbo
 @model cancer_isp.Models.ArtistWorkRegistrationModel
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@await Html.PartialAsync("_Message")
 
 <div class="row">
     <div class="col-sm">
@@ -20,35 +20,31 @@
                         {
                             <div class="form-group">
                                 <label class="profile-field-title">Artist</label>
-                                @Html.TextBoxFor(model => model.Artist, new { @class = "form-control", @placeholder = "Artist" })
+                                @Html.TextBoxFor(model => model.Artist, new {@class = "form-control", @placeholder = "Artist"})
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Work name</label>
-                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name" })
-                            </div>
-                            <div class="form-group">
-                                <label class="profile-field-title">Creation date</label>
-                                @Html.TextBoxFor(model => model.CreationDate, new { @class = "form-control", @placeholder = "Creation date" })
+                                @Html.TextBoxFor(model => model.Name, new {@class = "form-control", @placeholder = "Name"})
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Publish date</label>
-                                @Html.TextBoxFor(model => model.PublishDate, new { @class = "form-control", @placeholder = "Publish date" })
+                                @Html.TextBoxFor(model => model.PublishDate, "{0:yyyy-MM-dd}", new {@class = "form-control", @placeholder = "Publish date"})
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Length in seconds</label>
-                                @Html.TextBoxFor(model => model.Length, new { @class = "form-control", @placeholder = "Length" })
+                                @Html.TextBoxFor(model => model.LengthInSeconds, new {@class = "form-control", @placeholder = "Length"})
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Genre</label>
-                                @Html.DropDownListFor(model => model.Genres.First().Id, new SelectList(Model.Genres, nameof(Genre.Id), nameof(Genre.Name)), new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.GenreId, new SelectList(Model.Genres, nameof(Genre.Id), nameof(Genre.Name)), new {@class = "form-control"})
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Record label</label>
-                                @Html.TextBoxFor(model => model.RecordLabel, new { @class = "form-control", @placeholder = "Record label" })
+                                @Html.TextBoxFor(model => model.RecordLabel, new {@class = "form-control", @placeholder = "Record label"})
                             </div>
                             <div class="form-group">
                                 <label class="profile-field-title">Description</label>
-                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @placeholder = "Description" })
+                                @Html.TextBoxFor(model => model.Description, new {@class = "form-control", @placeholder = "Description"})
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mb-2">Submit</button>

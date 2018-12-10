@@ -1,4 +1,7 @@
-﻿using cancer_isp.Models;
+﻿using System;
+using AutoMapper;
+using cancer_isp.Models;
+using cancer_isp.Models.Dbo;
 using cancer_isp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,14 +15,20 @@ namespace cancer_isp.Controllers
         private readonly IUserService _userService;
         private readonly IWorkRegistrationService _workRegistrationService;
         private readonly IStatisticsService _statisticsService;
+        private readonly IMapper _mapper;
+        private readonly IArtistService _artistService;
 
-        public ArtistWorkController(IArtistWorkService artistWorkService, IGenreService genreService, IUserService userService, IWorkRegistrationService workRegistrationService, IStatisticsService statisticsService)
+        public ArtistWorkController(IArtistWorkService artistWorkService, IGenreService genreService,
+            IUserService userService, IWorkRegistrationService workRegistrationService,
+            IStatisticsService statisticsService, IMapper mapper, IArtistService artistService)
         {
             _artistWorkService = artistWorkService;
             _genreService = genreService;
             _userService = userService;
             _workRegistrationService = workRegistrationService;
             _statisticsService = statisticsService;
+            _mapper = mapper;
+            _artistService = artistService;
         }
 
         [Route("work/{id}")]
@@ -48,7 +57,6 @@ namespace cancer_isp.Controllers
         [Route("work/list")]
         public IActionResult List()
         {
-            
             return View();
         }
 
@@ -60,6 +68,7 @@ namespace cancer_isp.Controllers
             {
                 Genres = _genreService.GetGenres()
             };
+
             return View(artistWorkRegistrationModel);
         }
 
@@ -67,14 +76,42 @@ namespace cancer_isp.Controllers
         public IActionResult RegisterWork(ArtistWorkRegistrationModel model)
         {
             var user = _userService.GetUser(Username);
-          /*  var valid = _workRegistrationService.CheckArtist(model);
+            if (!ModelState.IsValid)
+            {
+                var genres = _genreService.GetGenres();
+                model.Genres = genres;
+
+                View("Register", model);
+            }
+
+            var valid = _workRegistrationService.CheckIfArtistExists(model.Artist);
             if (!valid)
             {
-                ModelState.AddModelError("Error", "Specified artist is not registered yet");
-                return View("List");
-            }*/
-            _workRegistrationService.RegisterWork(model, user);
-            return View("List");
+                var genres = _genreService.GetGenres();
+                model.Genres = genres;
+
+                View("Register", model);
+            }
+
+            var work = _mapper.Map<ArtistWork>(model);
+            var artist = _artistService.GetArtist(model.Artist);
+
+            work.FkImage = new Image
+            {
+                ImageDate = DateTime.Now,
+                ImageUrl = model.ImageUrl
+            };
+
+            work.FkUserid = user.Id;
+            work.CreationDate = DateTime.Now;
+
+            var success = _workRegistrationService.RegisterWork(work, artist);
+            if (success)
+            {
+                TempData["success"] = "Artist registration successful !";
+            }
+
+            return RedirectToAction("Register");
         }
     }
 }
