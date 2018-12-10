@@ -37,5 +37,15 @@ namespace cancer_isp.Services
 
             return user == null;
         }
+
+        public User GetUser(int id)
+        {
+            var user = _cancerIspContext.User
+                .Include(item => item.UserProfileInfo)
+                .Include(item => item.UserRole)
+                .FirstOrDefault(item => item.Id == id);
+
+            return user;
+		}
     }
 }

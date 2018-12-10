@@ -1,6 +1,52 @@
-﻿@{
+﻿@using cancer_isp.Models.Dbo
+@model cancer_isp.Models.AdminRolesModel
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@await Html.PartialAsync("_Message")
 
-<h2>Admin logged in</h2>
+<div class="row">
+    <div class="col-sm">
+
+        <div class="row">
+            <div class="col-sm">
+                <div class="card login-card">
+                    <h5 class="card-header">
+                        Change roles
+                    </h5>
+                    <div class="card-body">
+                        @using (Html.BeginForm("ChangeRoles", "Admin", FormMethod.Post))
+                        {
+                            <div class="form-group">
+                                <label class="profile-field-title">Full name</label>
+                                <br/>
+                                @Html.TextBoxFor(model => model.Id, new {@class = "form-control", @placeholder = "Full Name"})
+                            </div>
+                            <div class="form-group">
+                                <label class="profile-field-title">Birthdate</label>
+                                <br/>
+                                @Html.DropDownListFor(item => item.Role, Html.GetEnumSelectList(typeof(UserRoleEnum)), new {@class = "form-control"})
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm">
+
+        <div class="card login-card">
+            <h5 class="card-header">
+                Blokavimas
+            </h5>
+            <div class="card-body">
+            </div>
+        </div>
+
+    </div>
+</div>
