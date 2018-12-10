@@ -35,7 +35,7 @@ namespace cancer_isp.Controllers
         public IActionResult Index(int id)
         {
             var artistWork = _artistWorkService.GetArtistWork(id);
-            var artists = _artistWorkService.GetArtistWorkCreators(id);
+            var artists = _artistWorkService.GetArtistWorks(id);
             var ratings = _statisticsService.GetArtistWorkRatings(id);
 
             var artistsString = "";
@@ -57,7 +57,18 @@ namespace cancer_isp.Controllers
         [Route("work/list")]
         public IActionResult List()
         {
-            return View();
+            return View(new ArtistWorkFilter {Works = null});
+        }
+
+        [HttpGet]
+        public IActionResult Filter(ArtistWorkFilter filter)
+        {
+            var result = new ArtistWorkFilter
+            {
+                Works = _artistWorkService.GetArtistWorks(filter.Name)
+            };
+
+            return View("List", result);
         }
 
         [Authorize]

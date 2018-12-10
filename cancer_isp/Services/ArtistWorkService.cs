@@ -27,7 +27,7 @@ namespace cancer_isp.Services
             return work;
         }
 
-        public List<Artist> GetArtistWorkCreators(int artistWorkId)
+        public List<Artist> GetArtistWorks(int artistWorkId)
         {
             var creators = _cancerIspContext.ArtistCreated
                 .Include(item => item.FkArtist)
@@ -45,6 +45,16 @@ namespace cancer_isp.Services
                 .ToList();
 
             return aristWorks;
+        }
+
+        public List<ArtistWork> GetArtistWorks(string name)
+        {
+            var works = _cancerIspContext.ArtistWork
+                .Include(item => item.FKGenre)
+                .Where(item => item.Name.Contains(name))
+                .ToList();
+
+            return works;
         }
     }
 }
