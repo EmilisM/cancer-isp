@@ -17,20 +17,23 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\store\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\store\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\components\Home.js" />
+    <EmbeddedResource Remove="ClientApp\src\store\**" />
+    <None Remove="ClientApp\src\store\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\components\Home.js" />
+    <None Remove="ClientApp\src\components\NavigationBar.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\store\" />
+    <TypeScriptCompile Include="ClientApp\src\components\NavigationBar.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

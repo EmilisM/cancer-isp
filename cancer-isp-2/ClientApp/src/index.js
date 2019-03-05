@@ -1,15 +1,30 @@
 import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/css/bootstrap-theme.css";
 import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
+import { BrowserRouter } from "react-router-dom";
+import NavigationBar from "./components/NavigationBar";
+import Body from "./components/Body";
+import { createBrowserHistory } from "history";
 
 const rootElement = document.getElementById("root");
 
+const history = createBrowserHistory();
+
+function App() {
+    return (
+        <div>
+            <NavigationBar/>
+            <Body/>
+        </div>
+    );
+}
+
 ReactDOM.render(
-      <App />,
-  rootElement);
+    <BrowserRouter history={history}>
+        <App/>
+    </BrowserRouter>,
+    rootElement);
 
 registerServiceWorker();
