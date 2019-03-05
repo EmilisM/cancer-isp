@@ -6,11 +6,23 @@ import registerServiceWorker from "./registerServiceWorker";
 import { BrowserRouter } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import Body from "./components/Body";
-import { createBrowserHistory } from "history";
+import * as Redux from "redux";
+import { Provider } from "react-redux";
 
 const rootElement = document.getElementById("root");
 
-const history = createBrowserHistory();
+function reducer(state = { loggedIn: false }, action) {
+    switch (action.type) {
+    case "LOGIN_SUCCESS":
+        return Object.assign({}, state, { loggedIn: true });
+    case "LOGOUT_SUCCESS":
+        return Object.assign({}, state, { loggedIn: false });
+    default:
+        return state;
+    }
+}
+
+const store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 function App() {
     return (
@@ -22,9 +34,11 @@ function App() {
 }
 
 ReactDOM.render(
-    <BrowserRouter history={history}>
-        <App/>
-    </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </Provider>,
     rootElement);
 
 registerServiceWorker();
