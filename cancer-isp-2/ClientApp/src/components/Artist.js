@@ -1,59 +1,62 @@
 ﻿import React from "react";
-import "./Profile.css";
-import { Card, Row, Col, Form, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, Row, Col, Form, ListGroup, ListGroupItem, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-function ProfileInfoCard() {
+function ArtistCard() {
     return (
         <Card>
             <Card.Header>
-                User info
+                Artist
             </Card.Header>
             <Card.Body>
                 <Form.Group>
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>Alias</Form.Label>
                     <br/>
-                    <Form.Label>Admin</Form.Label>
+                    <Form.Label>Alias</Form.Label>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>First name</Form.Label>
+                    <Form.Label>Full name</Form.Label>
                     <br/>
-                    <Form.Label>First name</Form.Label>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Last name</Form.Label>
-                    <br/>
-                    <Form.Label>Last name</Form.Label>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Registration date</Form.Label>
-                    <br/>
-                    <Form.Label>Registration date</Form.Label>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Description</Form.Label>
-                    <br/>
-                    <Form.Label>Description</Form.Label>
+                    <Form.Label>Full name</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Birthdate</Form.Label>
                     <br/>
-                    <Form.Label>yyyy-MM-dd</Form.Label>
+                    <Form.Label>Birthdate</Form.Label>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label>Description</Form.Label>
                     <br/>
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label>Description</Form.Label>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Origin date</Form.Label>
+                    <br/>
+                    <Form.Label>yyyy-MM-dd</Form.Label>
                 </Form.Group>
             </Card.Body>
         </Card>
     );
 }
 
-function RatingCard() {
+function ArtistImageCard() {
     return (
         <Card>
             <Card.Header>
-                User Ratings
+                Image
+            </Card.Header>
+            <Card.Body>
+                <Image src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Ffiles.ontario.ca%2Fenvironment-and-energy%2Fconservation-and-stewardship%2Fredoak-tree.jpg&f=1" />
+            </Card.Body>
+        </Card>
+    );
+}
+
+function ArtistRatingCard() {
+    return (
+        <Card>
+            <Card.Header>
+                Ratings
             </Card.Header>
             <ListGroup className="list-group-flush">
                 <ListGroupItem>Cras justo odio</ListGroupItem>
@@ -68,11 +71,11 @@ function RatingCard() {
     );
 }
 
-function UserLists() {
+function ArtistSongsCard() {
     return (
         <Card>
             <Card.Header>
-                User Lists
+                Songs
             </Card.Header>
             <ListGroup className="list-group-flush">
                 <ListGroupItem>Cras justo odio</ListGroupItem>
@@ -82,20 +85,43 @@ function UserLists() {
             <Card.Body>
                 <Card.Link href="#">Next</Card.Link>
                 <Card.Link href="#">Previous</Card.Link>
-                <Card.Link href="#">Create new list</Card.Link>
             </Card.Body>
         </Card>
     );
 }
 
-function Profile() {
+function CreateNewArtistCard() {
+    return (
+        <Card>
+            <Card.Header>
+                Want to create a new artist ?
+            </Card.Header>
+            <Card.Body>
+                <div className="form-group">
+                    <label>Use this link</label>
+                </div>
+                <div className="form-group">
+                    <Link to="/artist/create">Create new artist</Link>
+                </div>
+            </Card.Body>
+        </Card>
+    );
+}
+
+function Artist() {
     return (
         <Row>
             <Col>
 
                 <Row>
                     <Col>
-                        <ProfileInfoCard/>
+                        <ArtistCard/>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col>
+                        <CreateNewArtistCard />
                     </Col>
                 </Row>
 
@@ -104,13 +130,19 @@ function Profile() {
 
                 <Row>
                     <Col>
-                        <RatingCard/>
+                        <ArtistImageCard />
                     </Col>
                 </Row>
 
                 <Row>
                     <Col>
-                        <UserLists />
+                        <ArtistRatingCard/>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col>
+                        <ArtistSongsCard />
                     </Col>
                 </Row>
 
@@ -119,4 +151,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default Artist;

@@ -3,6 +3,7 @@ import { Card, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import PropTypes from "prop-types";
 
 function ForgotPasswordCard() {
     return (
@@ -28,6 +29,10 @@ function ForgotPasswordCard() {
 }
 
 function LogInCard({ onLoginFormSubmit }) {
+    LogInCard.propTypes = {
+        onLoginFormSubmit: PropTypes.func
+    }
+
     return (
         <Card>
             <Card.Header>
@@ -58,7 +63,7 @@ function GoToRegisterPageCard() {
     return (
         <Card>
             <Card.Header>
-                Haven't registered yet ?
+                Haven&#39;t registered yet ?
             </Card.Header>
             <Card.Body>
                 <div className="form-group">

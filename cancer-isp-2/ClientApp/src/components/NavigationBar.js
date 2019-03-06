@@ -3,6 +3,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 function mapStateToProps(state) {
     return {
@@ -10,10 +11,11 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, props) {
     return {
         onLogOut: () => {
             dispatch({ type: "LOGOUT_SUCCESS" });
+            props.history.push("/");
         }
     };
 }
@@ -47,11 +49,15 @@ function NavigationBar(props) {
                 {props.loggedIn
                     ? <Nav className="mr-auto">
                           <NavLink name="Profile" path="/profile"/>
-                          <a className="nav-link" onClick={props.onLogOut}>Sign Out</a>
+                          <NavLink name="Song" path="/song"/>
+                          <NavLink name="Artist" path="/artist"/>
+                          <NavLink name="Search for songs" path="/search"/>
+                          <NavLink name="Admin" path="/admin"/>
+                          <a className="nav-link" onClick={props.onLogOut} style={{ cursor: "pointer" }}>Sign Out</a>
                       </Nav>
                     : <Nav className="mr-auto">
-                        <NavLink name="Log In" path="/login" />
-                        <NavLink name="Sign Up" path="/signup" />
+                          <NavLink name="Log In" path="/login"/>
+                          <NavLink name="Sign Up" path="/signup"/>
                       </Nav>
                 }
             </Navbar>
@@ -59,4 +65,4 @@ function NavigationBar(props) {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavigationBar));
