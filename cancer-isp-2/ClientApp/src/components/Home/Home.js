@@ -10,46 +10,67 @@ function mapStateToProps(state) {
     }
 }
 
-function HomeGreetingCard(props) {
+function MusicRecommendationCard({ loggedIn }) {
+    if (loggedIn) {
+        return (
+            <Row>
+                <Col>
+                    <Card>
+                        <Card.Header>
+                            Recommendation card
+                        </Card.Header>
+                        <Card.Body>
+                            <div className="form-group">
+                                Recommendations for you dear !
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        );
+    } else return null;
+}
+
+function HomeGreetingCard({ loggedIn }) {
     HomeGreetingCard.propTypes = {
         loggedIn: propTypes.bool
     }
 
     return (
-        <Card>
-            <Card.Header>
-                Hello!
-            </Card.Header>
-            <Card.Body>
-                <div className="form-group">
-                    Welcome to music rating site.
-                </div>
-                {props.loggedIn
-                    ? <div></div>
-                    : <div>
-                          <div className="form-group">
-                              <Link to="/login">To login page</Link>
-                          </div>
-                          <div className="form-group">
-                              <Link to="/signup">To sign up page</Link>
-                          </div>
-                      </div>}
-            </Card.Body>
-        </Card>
+        <Row>
+            <Col>
+                <Card>
+                    <Card.Header>
+                        Hello !
+                    </Card.Header>
+                    <Card.Body>
+                        <div className="form-group">
+                            Welcome to music rating site.
+                        </div>
+                        {loggedIn
+                            ? <div>
+                                  <div className="form-group">
+                                      <Link to="/login">To login page</Link>
+                                  </div>
+                                  <div className="form-group">
+                                      <Link to="/signup">To sign up page</Link>
+                                  </div>
+                              </div>
+                            : <div> </div>}
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Row>
     );
 }
 
-function Home() {
+function Home(props) {
     return (
         <Row>
             <Col>
+                <HomeGreetingCard {...props}/>
 
-                <Row>
-                    <Col>
-                        <HomeGreetingCard/>
-                    </Col>
-                </Row>
-
+                <MusicRecommendationCard {...props}/>
             </Col>
         </Row>
     );
