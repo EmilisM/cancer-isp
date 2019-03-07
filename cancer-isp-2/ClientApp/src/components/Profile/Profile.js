@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import "./Profile.css";
 import { Card, Row, Col, Form, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function ProfileInfoCard() {
     return (
@@ -82,7 +83,9 @@ function UserLists() {
             <Card.Body>
                 <Card.Link href="#">Next</Card.Link>
                 <Card.Link href="#">Previous</Card.Link>
-                <Card.Link href="#">Create new list</Card.Link>
+                <Card.Link>
+                    <Link to="/profile/create/list">Crate new list</Link>
+                </Card.Link>
             </Card.Body>
         </Card>
     );
@@ -110,7 +113,7 @@ function Profile() {
 
                 <Row>
                     <Col>
-                        <UserLists />
+                        <UserLists/>
                     </Col>
                 </Row>
 

@@ -11,6 +11,7 @@ import Artist from "./Artist/Artist";
 import Admin from "./Admin/Admin";
 import ArtistCreate from "./Artist/Artist.Create";
 import SongCreate from "./Song/Song.Create";
+import ProfileCreateList from "./Profile/Profile.Create.List";
 
 function Body() {
     return (
@@ -25,6 +26,7 @@ function Body() {
             <Route exact path="/admin" component={Admin}/>
             <Route exact path="/artist/create" component={ArtistCreate}/>
             <Route exact path="/song/create" component={SongCreate}/>
+            <Route exact path="/profile/create/list" component={ProfileCreateList}/>
         </Container>
     );
 }
