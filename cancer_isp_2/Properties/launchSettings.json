@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "cancer-isp-2": {
+    "cancer_isp_2": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
