@@ -48,15 +48,15 @@ function HomeGreetingCard({ loggedIn }) {
                             Welcome to music rating site.
                         </div>
                         {loggedIn
-                            ? <div>
+                            ? <div> </div>
+                            : <div>
                                   <div className="form-group">
                                       <Link to="/login">To login page</Link>
                                   </div>
                                   <div className="form-group">
                                       <Link to="/signup">To sign up page</Link>
                                   </div>
-                              </div>
-                            : <div> </div>}
+                              </div>}
                     </Card.Body>
                 </Card>
             </Col>

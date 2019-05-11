@@ -5,13 +5,13 @@ import Home from "./Home/Home";
 import Profile from "./Profile/Profile";
 import SignUp from "./Signup/Signup";
 import Login from "./Login/Login";
-import Song from "./Song/Song";
 import Search from "./Search/Search";
-import Artist from "./Artist/Artist";
+import SongList from "./Song/Song.List";
 import Admin from "./Admin/Admin";
-import ArtistCreate from "./Artist/Artist.Create";
 import SongCreate from "./Song/Song.Create";
 import ProfileCreateList from "./Profile/Profile.Create.List";
+import Artist from "./Artist/Artist";
+import ArtistList from "./Artist/Artist.List";
 
 function Body() {
     return (
@@ -20,11 +20,11 @@ function Body() {
             <Route exact path="/profile" component={Profile}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/signup" component={SignUp}/>
-            <Route exact path="/song" component={Song}/>
-            <Route exact path="/artist" component={Artist}/>
+            <Route exact path="/song/list" component={SongList}/>
             <Route exact path="/search" component={Search}/>
             <Route exact path="/admin" component={Admin}/>
-            <Route exact path="/artist/create" component={ArtistCreate}/>
+            <Route exact path="/artist/:artistId(list)" component={ArtistList} />
+            <Route exact path="/artist/:artistId([0-9]+)" component={Artist} />
             <Route exact path="/song/create" component={SongCreate}/>
             <Route exact path="/profile/create/list" component={ProfileCreateList}/>
         </Container>

@@ -1,8 +1,13 @@
 ﻿import React from "react";
-import { Card, Row, Col, Form, ListGroup, ListGroupItem, Image } from "react-bootstrap";
+import { Card, Row, Col, Form, ListGroup, ListGroupItem, Image, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function ArtistCard() {
+function ArtistCard({ artist }) {
+    ArtistCard.propTypes = {
+        artist: PropTypes.object
+    };
+
     return (
         <Card>
             <Card.Header>
@@ -12,27 +17,29 @@ function ArtistCard() {
                 <Form.Group>
                     <Form.Label>Alias</Form.Label>
                     <br/>
-                    <Form.Label>Alias</Form.Label>
+                    <Form.Label>{artist.alias}</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Full name</Form.Label>
                     <br/>
-                    <Form.Label>Full name</Form.Label>
+                    <Form.Label>{artist.fullName}</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Birthdate</Form.Label>
                     <br/>
-                    <Form.Label>Birthdate</Form.Label>
+                    <Form.Label>{artist.birthdate}</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Description</Form.Label>
                     <br/>
-                    <Form.Label>Description</Form.Label>
+                    <Form.Label>{artist.description}</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Origin date</Form.Label>
                     <br/>
-                    <Form.Label>yyyy-MM-dd</Form.Label>
+                    {artist.originDate != null
+                        ? <Form.Label>{artist.originDate}</Form.Label>
+                        : <div></div>}
                 </Form.Group>
             </Card.Body>
         </Card>
@@ -46,22 +53,28 @@ function ArtistImageCard() {
                 Image
             </Card.Header>
             <Card.Body>
-                <Image src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Ffiles.ontario.ca%2Fenvironment-and-energy%2Fconservation-and-stewardship%2Fredoak-tree.jpg&f=1" />
+                <Image src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Ffiles.ontario.ca%2Fenvironment-and-energy%2Fconservation-and-stewardship%2Fredoak-tree.jpg&f=1"/>
             </Card.Body>
         </Card>
     );
 }
 
-function ArtistRatingCard() {
+function ArtistAlbumsCard(props) {
+    ArtistAlbumsCard.propTypes = {
+        albums: PropTypes.array
+    };
+
     return (
         <Card>
             <Card.Header>
-                Ratings
+                Albums
             </Card.Header>
             <ListGroup className="list-group-flush">
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                {props.albums.map(album => (
+                    <ListGroupItem key={album.album.id}>
+                        {album.album.name}
+                    </ListGroupItem>
+                ))}
             </ListGroup>
             <Card.Body>
                 <Card.Link href="#">Next</Card.Link>
@@ -71,16 +84,22 @@ function ArtistRatingCard() {
     );
 }
 
-function ArtistSongsCard() {
+function ArtistSongsCard(props) {
+    ArtistSongsCard.propTypes = {
+        songs: PropTypes.array
+    };
+
     return (
         <Card>
             <Card.Header>
                 Songs
             </Card.Header>
             <ListGroup className="list-group-flush">
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                {props.songs.map(song => (
+                    <ListGroupItem key={song.song.id}>
+                        {song.song.name}
+                    </ListGroupItem>
+                ))}
             </ListGroup>
             <Card.Body>
                 <Card.Link href="#">Next</Card.Link>
@@ -108,47 +127,92 @@ function CreateNewArtistCard() {
     );
 }
 
-function Artist() {
-    return (
-        <Row>
-            <Col>
+class Artist extends React.Component {
+    constructor(props) {
+        super(props);
 
-                <Row>
-                    <Col>
-                        <ArtistCard/>
-                    </Col>
-                </Row>
+        this.state = {
+            artistId: this.props.match.params.artistId,
+            error: null,
+            artist: { albums: [], songs: [] }
+        };
 
-                <Row>
-                    <Col>
-                        <CreateNewArtistCard />
-                    </Col>
-                </Row>
+        Artist.propTypes = {
+            artistId: PropTypes.number,
+            artist: PropTypes.object,
+            match: PropTypes.object
+        };
+    }
 
-            </Col>
-            <Col>
+    componentDidMount() {
+        fetch(`api/artist/${this.state.artistId}`)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        artist: result,
+                        error: result.error
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        error: error
+                    });
+                }
+            );
+    }
 
-                <Row>
-                    <Col>
-                        <ArtistImageCard />
-                    </Col>
-                </Row>
+    render() {
+        return (
+            <div>
+                { this.state.error != null
+                    ? <Row>
+                          <Col>
+                              <Alert variant="danger">{this.state.error}</Alert>
+                          </Col>
+                      </Row>
+                    : <Row>
+                          <Col>
 
-                <Row>
-                    <Col>
-                        <ArtistRatingCard/>
-                    </Col>
-                </Row>
+                              <Row>
+                                  <Col>
+                                      <ArtistCard {...this.state}/>
+                                  </Col>
+                              </Row>
 
-                <Row>
-                    <Col>
-                        <ArtistSongsCard />
-                    </Col>
-                </Row>
+                              <Row>
+                                  <Col>
+                                      <CreateNewArtistCard/>
+                                  </Col>
+                              </Row>
 
-            </Col>
-        </Row>
-    );
+                          </Col>
+                          <Col>
+
+                              <Row>
+                                  <Col>
+                                      <ArtistImageCard/>
+                                  </Col>
+                              </Row>
+
+                              <Row>
+                                  <Col>
+                                    <ArtistAlbumsCard albums={this.state.artist.albums}/>
+                                  </Col>
+                              </Row>
+
+                              <Row>
+                                  <Col>
+                                    <ArtistSongsCard songs={this.state.artist.songs}/>
+                                  </Col>
+                              </Row>
+
+                          </Col>
+                      </Row>
+                }
+            </div>
+        );
+    }
 }
 
 export default Artist;

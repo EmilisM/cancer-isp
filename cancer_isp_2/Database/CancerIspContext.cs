@@ -139,7 +139,7 @@ namespace cancer_isp_2.Database
                     .HasConstraintName("artist_album_ibfk_2");
 
                 entity.HasOne(d => d.Artist)
-                    .WithMany(p => p.ArtistAlbum)
+                    .WithMany(p => p.Albums)
                     .HasForeignKey(d => d.ArtistId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("artist_album_ibfk_1");
@@ -163,7 +163,7 @@ namespace cancer_isp_2.Database
                     .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Artist)
-                    .WithMany(p => p.ArtistSong)
+                    .WithMany(p => p.Songs)
                     .HasForeignKey(d => d.ArtistId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("artist_song_ibfk_2");

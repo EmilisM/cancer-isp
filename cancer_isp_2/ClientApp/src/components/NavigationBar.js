@@ -49,9 +49,9 @@ function NavigationBar(props) {
                 {props.loggedIn
                     ? <Nav className="mr-auto">
                           <NavLink name="Profile" path="/profile"/>
-                          <NavLink name="Song" path="/song"/>
-                          <NavLink name="Artist" path="/artist"/>
-                          <NavLink name="Search for songs" path="/search"/>
+                          <NavLink name="Song" path="/song/list"/>
+                          <NavLink name="Artist" path="/artist/list"/>
+                          <NavLink name="Search" path="/search"/>
                           <NavLink name="Admin" path="/admin"/>
                           <a className="nav-link" onClick={props.onLogOut} style={{ cursor: "pointer" }}>Sign Out</a>
                       </Nav>

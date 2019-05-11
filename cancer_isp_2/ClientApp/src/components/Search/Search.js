@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import { Card, Row, Col, Form, Button, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, Row, Col, Form, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 
 function SearchCard() {
     return (
@@ -9,12 +9,20 @@ function SearchCard() {
             </Card.Header>
             <Card.Body>
                 <Form.Group>
-                    <Form.Label>Search</Form.Label>
+                    <Form.Label>Search term</Form.Label>
                     <br/>
-                    <Form.Control type="email" placeholder="Search"/>
+                    <Form.Control placeholder="Eg. Skeleton tree"/>
                 </Form.Group>
                 <Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Form.Label>Search through:</Form.Label>
+                    <Form.Control as="select">
+                        <option>Song</option>
+                        <option>Artist</option>
+                        <option>Album</option>
+                    </Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <Button>
                         Search
                     </Button>
                 </Form.Group>
