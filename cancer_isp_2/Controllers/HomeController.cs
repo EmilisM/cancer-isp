@@ -2,9 +2,9 @@
 
 namespace cancer_isp_2.Controllers
 {
-    [Route("api/admin")]
+    [Route("api/home")]
     [ApiController]
-    public class AdminController : ControllerBase
+    public class HomeController : ControllerBase
     {
     }
 }
