@@ -133,7 +133,7 @@ namespace cancer_isp_2.Database
                     .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Album)
-                    .WithMany(p => p.ArtistAlbum)
+                    .WithMany(p => p.Artists)
                     .HasForeignKey(d => d.AlbumId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("artist_album_ibfk_2");
@@ -169,7 +169,7 @@ namespace cancer_isp_2.Database
                     .HasConstraintName("artist_song_ibfk_2");
 
                 entity.HasOne(d => d.Song)
-                    .WithMany(p => p.ArtistSong)
+                    .WithMany(p => p.Artists)
                     .HasForeignKey(d => d.SongId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("artist_song_ibfk_1");
@@ -315,7 +315,7 @@ namespace cancer_isp_2.Database
                     .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Song)
-                    .WithMany(p => p.Rating)
+                    .WithMany(p => p.Ratings)
                     .HasForeignKey(d => d.SongId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("rating_ibfk_1");
@@ -373,7 +373,7 @@ namespace cancer_isp_2.Database
                     .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Album)
-                    .WithMany(p => p.Song)
+                    .WithMany(p => p.Songs)
                     .HasForeignKey(d => d.AlbumId)
                     .HasConstraintName("song_ibfk_2");
 
@@ -412,7 +412,7 @@ namespace cancer_isp_2.Database
                     .HasConstraintName("song_genre_ibfk_2");
 
                 entity.HasOne(d => d.Song)
-                    .WithMany(p => p.SongGenre)
+                    .WithMany(p => p.Genres)
                     .HasForeignKey(d => d.SongId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("song_genre_ibfk_1");

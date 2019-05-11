@@ -3,8 +3,8 @@ import { Card, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-function NewArtistList({ artists }) {
-    NewArtistList.propTypes = {
+function NewArtistCard({ artists }) {
+    NewArtistCard.propTypes = {
         artists: PropTypes.array
     };
 
@@ -52,7 +52,7 @@ class ArtistList extends React.Component {
 
                         <Row>
                             <Col>
-                                <NewArtistList {...this.state} />
+                                <NewArtistCard {...this.state}/>
                             </Col>
                         </Row>
 

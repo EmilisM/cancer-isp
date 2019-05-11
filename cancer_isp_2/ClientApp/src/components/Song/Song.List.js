@@ -1,40 +1,69 @@
 ﻿import React from "react";
 import { Card, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function NewSongList() {
+function NewSongCard({ songs }) {
+    NewSongCard.propTypes = {
+        songs: PropTypes.array
+    };
+
     return (
         <Card>
             <Card.Header>
                 New songs
             </Card.Header>
             <ListGroup className="list-group-flush">
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                {songs.map(song => (
+                    <ListGroupItem key={song.id}>
+                        <Link to={`/song/${song.id}`}>{song.artists.map(artist => artist.artist.alias).join(", ")} - {song.name}</Link>
+                    </ListGroupItem>
+                ))}
             </ListGroup>
         </Card>
     );
 }
 
-function SongList() {
-    return (
-        <Row>
-            <Col>
+class SongList extends React.Component {
+    constructor(props) {
+        super(props);
 
-                <Row>
-                    <Col>
-                        <NewSongList/>
-                    </Col>
-                </Row>
+        this.state = {
+            songs: []
+        };
+    }
 
-                <Row>
-                    <Col>
-                    </Col>
-                </Row>
+    componentDidMount() {
+        fetch("api/song/new")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        songs: result
+                    });
+                });
+    }
 
-            </Col>
-        </Row>
-    );
+    render() {
+        return (
+            <Row>
+                <Col>
+
+                    <Row>
+                        <Col>
+                            <NewSongCard {...this.state}/>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col>
+                        </Col>
+                    </Row>
+
+                </Col>
+            </Row>
+        );
+    }
 }
 
 export default SongList;

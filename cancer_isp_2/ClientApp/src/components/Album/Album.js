@@ -1,45 +1,33 @@
 ﻿import React from "react";
 import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-function SongCard({ song }) {
-    SongCard.propTypes = {
-        song: PropTypes.object
+function AlbumCard({ album }) {
+    AlbumCard.propTypes = {
+        album: PropTypes.object
     };
 
     return (
         <Card>
             <Card.Header>
-                Song
+                Album
             </Card.Header>
             <Card.Body>
                 <Form.Group>
-                    <Form.Label>Artist(s)</Form.Label>
+                    <Form.Label>Album name</Form.Label>
                     <br/>
-                    <Form.Label>{song.artists.map(artist => artist.artist.alias).join(", ")}</Form.Label>
+                    <Form.Label>{album.name}</Form.Label>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Song name</Form.Label>
+                    <Form.Label>Artist(s)</Form.Label>
                     <br/>
-                    <Form.Label>{song.name}</Form.Label>
+                    <Form.Label>{album.artists.map(artist => artist.artist.alias).join(", ")}</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Release date</Form.Label>
-                    <br/>
-                    <Form.Label>{song.releaseDate}</Form.Label>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Genres</Form.Label>
-                    <br/>
-                    <Form.Label>{song.genres.map(genre => genre.genre.name).join(", ")}</Form.Label>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Album</Form.Label>
-                    <br/>
-                    <Form.Label>
-                        <Link to={`/album/${song.album.id}`}>{song.album.name}</Link>
-                    </Form.Label>
+                    <br />
+                    <Form.Label>{album.releaseDate}</Form.Label>
                 </Form.Group>
             </Card.Body>
         </Card>
@@ -59,80 +47,58 @@ function ImageCard() {
     );
 }
 
-function SongRatingsCard(props) {
-    SongRatingsCard.propTypes = {
-        ratings: PropTypes.array
+function AlbumSongCard(props) {
+    AlbumSongCard.propTypes = {
+        songs: PropTypes.array
     };
 
     return (
         <Card>
             <Card.Header>
-                Ratings
+                Songs
             </Card.Header>
             <ListGroup className="list-group-flush">
-                {props.ratings.map(rating => (
-                    <ListGroupItem key={rating.id}>
-                        {rating.comment} - {rating.points} by {rating.user.username}
+                {props.songs.map(song => (
+                    <ListGroupItem key={song.id}>
+                        <Link to={`/song/${song.id}`}>{song.name}</Link>
                     </ListGroupItem>
                 ))}
             </ListGroup>
-
             <Card.Body>
                 <Card.Link href="#">Next</Card.Link>
                 <Card.Link href="#">Previous</Card.Link>
-                <Card.Link href="#">Create new rating</Card.Link>
             </Card.Body>
         </Card>
     );
 }
 
-function CreateNewSongCard() {
-    return (
-        <Card>
-            <Card.Header>
-                Want to create a new song ?
-            </Card.Header>
-            <Card.Body>
-                <div className="form-group">
-                    <label>Use this link</label>
-                </div>
-                <div className="form-group">
-                    <Link to="/song/create">Create new song</Link>
-                </div>
-            </Card.Body>
-        </Card>
-    );
-}
-
-class Song extends React.Component {
+class Album extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            songId: this.props.match.params.songId,
+            albumId: this.props.match.params.albumId,
             error: null,
-            song: {
-                ratings: [],
+            album: {
                 artists: [],
-                genres: [],
-                album: {}
+                songs: []
             }
         };
 
-        Song.propTypes = {
-            songId: PropTypes.number,
-            song: PropTypes.object,
+        Album.propTypes = {
+            albumId: PropTypes.number,
+            album: PropTypes.object,
             match: PropTypes.object
         };
     }
 
     componentDidMount() {
-        fetch(`api/song/${this.state.songId}`)
+        fetch(`api/album/${this.state.albumId}`)
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
-                        song: result,
+                        album: result,
                         error: result.error
                     });
                 },
@@ -158,13 +124,7 @@ class Song extends React.Component {
 
                               <Row>
                                   <Col>
-                                      <SongCard {...this.state}/>
-                                  </Col>
-                              </Row>
-
-                              <Row>
-                                  <Col>
-                                      <CreateNewSongCard/>
+                                      <AlbumCard {...this.state}/>
                                   </Col>
                               </Row>
 
@@ -179,7 +139,7 @@ class Song extends React.Component {
 
                               <Row>
                                   <Col>
-                                      <SongRatingsCard ratings={this.state.song.ratings}/>
+                                      <AlbumSongCard songs={this.state.album.songs}/>
                                   </Col>
                               </Row>
 
@@ -191,4 +151,4 @@ class Song extends React.Component {
     }
 }
 
-export default Song;
+export default Album;

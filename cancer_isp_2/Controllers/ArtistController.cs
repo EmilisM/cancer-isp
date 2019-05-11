@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using cancer_isp_2.Database;
 using Microsoft.AspNetCore.Mvc;
@@ -21,13 +20,12 @@ namespace cancer_isp_2.Controllers
 
         [HttpGet]
         [Route("new")]
-        public IEnumerable<object> GetNewArtists()
+        public IActionResult GetNewArtists()
         {
             var artists = _context.Artist
-                .Where(artist => artist.OriginDate.HasValue && artist.OriginDate.Value.Month == DateTime.Now.Month)
-                .Select(artist => new {artist.Id, artist.Alias, artist.FullName, artist.Description});
+                .Where(artist => artist.OriginDate.HasValue && artist.OriginDate.Value.Month == DateTime.Now.Month);
 
-            return artists;
+            return Ok(artists);
         }
 
         [HttpGet]

@@ -7,10 +7,10 @@ namespace cancer_isp_2.Database
     {
         public Song()
         {
-            ArtistSong = new HashSet<ArtistSong>();
+            Artists = new HashSet<ArtistSong>();
             PlaylistSong = new HashSet<PlaylistSong>();
-            Rating = new HashSet<Rating>();
-            SongGenre = new HashSet<SongGenre>();
+            Ratings = new HashSet<Rating>();
+            Genres = new HashSet<SongGenre>();
         }
 
         public int Id { get; set; }
@@ -25,9 +25,9 @@ namespace cancer_isp_2.Database
         public virtual Album Album { get; set; }
         public virtual Image Image { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<ArtistSong> ArtistSong { get; set; }
+        public virtual ICollection<ArtistSong> Artists { get; set; }
         public virtual ICollection<PlaylistSong> PlaylistSong { get; set; }
-        public virtual ICollection<Rating> Rating { get; set; }
-        public virtual ICollection<SongGenre> SongGenre { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<SongGenre> Genres { get; set; }
     }
 }
