@@ -46,14 +46,14 @@ function SongCard({ song }) {
     );
 }
 
-function ImageCard() {
+function ImageCard({ image }) {
     return (
         <Card>
             <Card.Header>
                 Image
             </Card.Header>
             <Card.Body>
-                <Image src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Ffiles.ontario.ca%2Fenvironment-and-energy%2Fconservation-and-stewardship%2Fredoak-tree.jpg&f=1"/>
+                <Image src={image.url}/>
             </Card.Body>
         </Card>
     );
@@ -115,7 +115,8 @@ class Song extends React.Component {
                 ratings: [],
                 artists: [],
                 genres: [],
-                album: {}
+                album: {},
+                image: {}
             }
         };
 
@@ -173,7 +174,7 @@ class Song extends React.Component {
 
                               <Row>
                                   <Col>
-                                      <ImageCard/>
+                                      <ImageCard image={this.state.song.image}/>
                                   </Col>
                               </Row>
 

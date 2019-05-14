@@ -1,3 +1,22 @@
-.card, .alert {
-	margin-top: 20px
+.card, .alert { margin-top: 20px }
+
+.list-group-item > .row > .col > img {
+	height: 48px;
+	width: 48px;
+	margin-right: 10px
+}
+
+.list-group-item > .row > .col {
+	height: 48px;
+	display: flex;
+	align-items: center;
+}
+
+.list-group-item > .row > .col:nth-child(2) {
+	justify-content: right;
+}
+
+.card-body > img {
+	height: 256px;
+	width: 256px;
 }
