@@ -10,6 +10,7 @@ import SongList from "./Song/Song.List";
 import Song from "./Song/Song";
 import Admin from "./Admin/Admin";
 import SongCreate from "./Song/Song.Create";
+import ArtistCreate from "./Artist/Artist.Create";
 import ProfileCreateList from "./Profile/Profile.Create.List";
 import Artist from "./Artist/Artist";
 import ArtistList from "./Artist/Artist.List";
@@ -30,6 +31,7 @@ function Body() {
             <Route exact path="/song/:songId(list)" component={SongList}/>
             <Route exact path="/song/:songId([0-9]+)" component={Song}/>
             <Route exact path="/song/create" component={SongCreate}/>
+            <Route exact path="/artist/create" component={ArtistCreate}/>
             <Route exact path="/profile/create/list" component={ProfileCreateList}/>
         </Container>
     );

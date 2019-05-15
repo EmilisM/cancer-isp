@@ -24,6 +24,24 @@ function NewSongCard({ songs }) {
     );
 }
 
+function CreateNewSongCard() {
+    return (
+        <Card>
+            <Card.Header>
+                Want to create a new song ?
+            </Card.Header>
+            <Card.Body>
+                <div className="form-group">
+                    <label>Use this link</label>
+                </div>
+                <div className="form-group">
+                    <Link to="/song/create">Create new song</Link>
+                </div>
+            </Card.Body>
+        </Card>
+    );
+}
+
 class SongList extends React.Component {
     constructor(props) {
         super(props);
@@ -57,6 +75,7 @@ class SongList extends React.Component {
 
                     <Row>
                         <Col>
+                            <CreateNewSongCard />
                         </Col>
                     </Row>
 

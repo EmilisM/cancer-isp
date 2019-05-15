@@ -24,6 +24,24 @@ function NewArtistCard({ artists }) {
     );
 }
 
+function CreateNewArtistCard() {
+    return (
+        <Card>
+            <Card.Header>
+                Want to create a new artist ?
+            </Card.Header>
+            <Card.Body>
+                <div className="form-group">
+                    <label>Use this link</label>
+                </div>
+                <div className="form-group">
+                    <Link to="/artist/create">Create new artist</Link>
+                </div>
+            </Card.Body>
+        </Card>
+    );
+}
+
 class ArtistList extends React.Component {
     constructor(props) {
         super(props);
@@ -53,6 +71,12 @@ class ArtistList extends React.Component {
                         <Row>
                             <Col>
                                 <NewArtistCard {...this.state}/>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col>
+                                <CreateNewArtistCard />
                             </Col>
                         </Row>
 
