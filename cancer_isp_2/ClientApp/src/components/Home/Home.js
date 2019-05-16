@@ -41,10 +41,10 @@ function TopSongCard({ songs, showFilter, onClick, onSubmit, onChange, rangeDays
                                   <Form.Group>
                                       <Form.Label>Top song period</Form.Label>
                                       <Form.Control as="select" onChange={onChange}>
-                                          <option value="7" selected={rangeDays == 7}>1 week</option>
-                                          <option value="30" selected={rangeDays == 30}>1 month</option>
-                                          <option value="180" selected={rangeDays == 180}>6 months</option>
-                                          <option value="0" selected={rangeDays == 0}>All time</option>
+                                          <option value="7" selected={rangeDays === 7}>1 week</option>
+                                          <option value="30" selected={rangeDays === 30}>1 month</option>
+                                          <option value="180" selected={rangeDays === 180}>6 months</option>
+                                          <option value="0" selected={rangeDays === 0}>All time</option>
                                       </Form.Control>
                                   </Form.Group>
 
