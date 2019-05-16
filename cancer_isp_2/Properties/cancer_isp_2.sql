@@ -219,7 +219,7 @@ CREATE TABLE `song` (
 --
 
 INSERT INTO `song` (`id`, `name`, `release_date`, `length_in_seconds`, `description`, `image_id`, `album_id`, `user_id`, `youtube_video_id`) VALUES
-(1, 'First song of album', '2019-05-10 00:00:00', 120, NULL, 1, 2, 1, NULL);
+(1, 'First song of album', '2019-05-10 00:00:00', 120, NULL, 1, 2, 1, '8MQO2STCbbY');
 
 -- --------------------------------------------------------
 
