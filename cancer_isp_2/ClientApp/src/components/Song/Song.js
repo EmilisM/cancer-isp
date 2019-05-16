@@ -48,7 +48,7 @@ function SongCard({ song }) {
 }
 
 function ImageCard({ image }) {
-    SongCard.propTypes = {
+    ImageCard.propTypes = {
         image: PropTypes.object
     };
 
