@@ -21,6 +21,7 @@ namespace cancer_isp_2.Database
         public int? ImageId { get; set; }
         public int? AlbumId { get; set; }
         public int? UserId { get; set; }
+        public string YoutubeVideoId { get; set; }
 
         public virtual Album Album { get; set; }
         public virtual Image Image { get; set; }

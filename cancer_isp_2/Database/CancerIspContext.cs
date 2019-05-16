@@ -366,6 +366,11 @@ namespace cancer_isp_2.Database
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
+                entity.Property(e => e.YoutubeVideoId)
+                    .HasColumnName("youtube_video_id")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.ReleaseDate).HasColumnName("release_date");
 
                 entity.Property(e => e.UserId)

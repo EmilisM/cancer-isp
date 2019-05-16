@@ -3,6 +3,7 @@ import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert } from "re
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import CreateNewSongCard from "./Song.CreateNewSong";
+import YouTube from "react-youtube";
 
 function SongCard({ song }) {
     SongCard.propTypes = {
@@ -59,6 +60,28 @@ function ImageCard({ image }) {
             </Card.Header>
             <Card.Body>
                 <Image src={image.url}/>
+            </Card.Body>
+        </Card>
+    );
+}
+
+function SongPlaybackCard(props) {
+    SongPlaybackCard.propTypes = {
+        videoId: PropTypes.string
+    };
+
+    const opts = {
+        height: "320",
+        width: "640"
+    };
+
+    return (
+        <Card>
+            <Card.Header>
+                Song playback
+            </Card.Header>
+            <Card.Body>
+                <YouTube videoId={props.videoId} opts={opts}/>
             </Card.Body>
         </Card>
     );
@@ -168,6 +191,14 @@ class Song extends React.Component {
                               <Row>
                                   <Col>
                                       <SongRatingsCard ratings={this.state.song.ratings}/>
+                                  </Col>
+                              </Row>
+
+                              <Row>
+                                  <Col>
+                                      { this.state.song.youtubeVideoId !== null
+                                        ? <SongPlaybackCard videoId={this.state.song.youtubeVideoId}/>
+                                        : <div></div> }
                                   </Col>
                               </Row>
 
