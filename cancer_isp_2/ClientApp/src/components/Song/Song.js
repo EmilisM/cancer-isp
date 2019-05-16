@@ -1,9 +1,11 @@
 ﻿import React from "react";
-import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert } from "react-bootstrap";
+import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert, Popover, OverlayTrigger, Button } from
+    "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import CreateNewSongCard from "./Song.CreateNewSong";
 import YouTube from "react-youtube";
+import { FaPlus } from "react-icons/fa";
 
 function SongCard({ song }) {
     SongCard.propTypes = {
@@ -67,7 +69,11 @@ function ImageCard({ image }) {
 
 function SongPlaybackCard(props) {
     SongPlaybackCard.propTypes = {
-        videoId: PropTypes.string
+        videoId: PropTypes.string,
+        playlists: PropTypes.array,
+        onClick: PropTypes.func,
+        onSubmit: PropTypes.func,
+        onChange: PropTypes.func
     };
 
     const opts = {
@@ -75,13 +81,44 @@ function SongPlaybackCard(props) {
         width: "640"
     };
 
+    const popover = (
+        <Popover id="popover-basic" title="Add song to playlist">
+            <ListGroup variant="flush">
+                {props.playlists.map(playlist =>
+                    <ListGroup.Item key={playlist.id} style={{ cursor: "pointer" }} onClick={(e) => props.onClick(e,
+                        playlist.id)}>
+                        {playlist.name} <FaPlus/>
+                    </ListGroup.Item>)}
+                <ListGroup.Item>
+                    <Form onSubmit={props.onSubmit}>
+                        <Form.Group>
+                            <Form.Label>Or create a new one</Form.Label>
+                            <Form.Label>Playlist name</Form.Label>
+                            <Form.Control placeholder="Name" onChange={props.onChange}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Button type="submit">Create playlist</Button>
+                        </Form.Group>
+                    </Form>
+                </ListGroup.Item>
+            </ListGroup>
+        </Popover>
+    );
+
     return (
         <Card>
             <Card.Header>
                 Song playback
             </Card.Header>
             <Card.Body>
-                <YouTube videoId={props.videoId} opts={opts}/>
+                <Form.Group>
+                    <YouTube videoId={props.videoId} opts={opts}/>
+                </Form.Group>
+                <Form.Group>
+                    <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+                        <Button>Add song to playlist</Button>
+                    </OverlayTrigger>
+                </Form.Group>
             </Card.Body>
         </Card>
     );
@@ -127,7 +164,9 @@ class Song extends React.Component {
                 genres: [],
                 album: {},
                 image: {}
-            }
+            },
+            playlists: [],
+            playlistName: null
         };
 
         Song.propTypes = {
@@ -135,17 +174,55 @@ class Song extends React.Component {
             song: PropTypes.object,
             match: PropTypes.object
         };
+
+        this.onPlaylistClick = this.onPlaylistClick.bind(this);
+        this.onPlaylistCreate = this.onPlaylistCreate.bind(this);
+        this.onPlaylistNameChange = this.onPlaylistNameChange.bind(this);
+    }
+
+    onPlaylistNameChange(e) {
+        e.preventDefault();
+
+        this.setState({
+            playlistName: e.target.value
+        });
+    }
+
+    onPlaylistCreate(e) {
+        e.preventDefault();
+
+        fetch(`api/user/playlist/new/${this.state.playlistName}`, { method: "POST" })
+            .then(() => {
+                fetch(`api/user/playlists`)
+                    .then(res => res.json())
+                    .then(
+                        (playlists) => {
+                            this.setState({
+                                playlists: playlists
+                            });
+                        });
+            });
+    }
+
+    onPlaylistClick(e, data) {
+        fetch(`api/user/playlist/${data}/add/${this.state.songId}`, { method: "POST" });
     }
 
     componentDidMount() {
         fetch(`api/song/${this.state.songId}`)
             .then(res => res.json())
             .then(
-                (result) => {
-                    this.setState({
-                        song: result,
-                        error: result.error
-                    });
+                (song) => {
+                    fetch(`api/user/playlists`)
+                        .then(res => res.json())
+                        .then(
+                            (playlists) => {
+                                this.setState({
+                                    playlists: playlists,
+                                    song: song,
+                                    error: song.error
+                                });
+                            });
                 },
                 (error) => {
                     this.setState({
@@ -197,8 +274,10 @@ class Song extends React.Component {
                               <Row>
                                   <Col>
                                       { this.state.song.youtubeVideoId !== null
-                                        ? <SongPlaybackCard videoId={this.state.song.youtubeVideoId}/>
-                                        : <div></div> }
+                                          ? <SongPlaybackCard videoId={this.state.song.youtubeVideoId} playlists={this
+                                              .state.playlists} onClick={this.onPlaylistClick} onChange={this
+                                                  .onPlaylistNameChange} onSubmit={this.onPlaylistCreate}/>
+                                          : <div></div> }
                                   </Col>
                               </Row>
 
