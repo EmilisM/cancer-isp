@@ -137,5 +137,5 @@ CREATE TABLE playlist_song (
   song_id INT NOT NULL,
   PRIMARY KEY(playlist_id, song_id),
   FOREIGN KEY(playlist_id) REFERENCES playlist(id),
-  FOREIGN KEY(song_id) REFERENCES pong(id)
+  FOREIGN KEY(song_id) REFERENCES song(id)
 );
