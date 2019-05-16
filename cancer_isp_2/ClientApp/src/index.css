@@ -16,7 +16,21 @@
 	justify-content: right;
 }
 
+.card-header > .row > .col {
+	display: flex;
+	align-items: center;
+}
+
+.card-header > .row > .col:nth-child(2) {
+	justify-content: right;
+}
+
+#filter {
+	background-color: #E0E0E0;
+}
+
 .card-body > img {
 	height: 256px;
 	width: 256px;
 }
+

@@ -2,6 +2,7 @@
 import { Card, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import CreateNewArtistCard from "./Artist.CreateNewCard";
 
 function NewArtistCard({ artists }) {
     NewArtistCard.propTypes = {
@@ -20,24 +21,6 @@ function NewArtistCard({ artists }) {
                     </ListGroupItem>
                 ))}
             </ListGroup>
-        </Card>
-    );
-}
-
-function CreateNewArtistCard() {
-    return (
-        <Card>
-            <Card.Header>
-                Want to create a new artist ?
-            </Card.Header>
-            <Card.Body>
-                <div className="form-group">
-                    <label>Use this link</label>
-                </div>
-                <div className="form-group">
-                    <Link to="/artist/create">Create new artist</Link>
-                </div>
-            </Card.Body>
         </Card>
     );
 }

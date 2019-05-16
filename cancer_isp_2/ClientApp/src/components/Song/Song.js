@@ -2,6 +2,7 @@
 import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import CreateNewSongCard from "./Song.CreateNewSong";
 
 function SongCard({ song }) {
     SongCard.propTypes = {
@@ -47,6 +48,10 @@ function SongCard({ song }) {
 }
 
 function ImageCard({ image }) {
+    SongCard.propTypes = {
+        image: PropTypes.object
+    };
+
     return (
         <Card>
             <Card.Header>
@@ -81,24 +86,6 @@ function SongRatingsCard(props) {
                 <Card.Link href="#">Next</Card.Link>
                 <Card.Link href="#">Previous</Card.Link>
                 <Card.Link href="#">Create new rating</Card.Link>
-            </Card.Body>
-        </Card>
-    );
-}
-
-function CreateNewSongCard() {
-    return (
-        <Card>
-            <Card.Header>
-                Want to create a new song ?
-            </Card.Header>
-            <Card.Body>
-                <div className="form-group">
-                    <label>Use this link</label>
-                </div>
-                <div className="form-group">
-                    <Link to="/song/create">Create new song</Link>
-                </div>
             </Card.Body>
         </Card>
     );

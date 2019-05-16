@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import { Card, Row, Col, Form, ListGroup, ListGroupItem, Image, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import CreateNewArtistCard from "./Artist.CreateNewCard";
 
 function ArtistCard({ artist }) {
     ArtistCard.propTypes = {
@@ -109,24 +109,6 @@ function ArtistSongsCard(props) {
     );
 }
 
-function CreateNewArtistCard() {
-    return (
-        <Card>
-            <Card.Header>
-                Want to create a new artist ?
-            </Card.Header>
-            <Card.Body>
-                <div className="form-group">
-                    <label>Use this link</label>
-                </div>
-                <div className="form-group">
-                    <Link to="/artist/create">Create new artist</Link>
-                </div>
-            </Card.Body>
-        </Card>
-    );
-}
-
 class Artist extends React.Component {
     constructor(props) {
         super(props);
@@ -197,13 +179,13 @@ class Artist extends React.Component {
 
                               <Row>
                                   <Col>
-                                    <ArtistAlbumsCard albums={this.state.artist.albums}/>
+                                      <ArtistAlbumsCard albums={this.state.artist.albums}/>
                                   </Col>
                               </Row>
 
                               <Row>
                                   <Col>
-                                    <ArtistSongsCard songs={this.state.artist.songs}/>
+                                      <ArtistSongsCard songs={this.state.artist.songs}/>
                                   </Col>
                               </Row>
 

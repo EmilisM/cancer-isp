@@ -2,6 +2,7 @@
 import { Card, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import CreateNewSongCard from "./Song.CreateNewSong";
 
 function NewSongCard({ songs }) {
     NewSongCard.propTypes = {
@@ -16,28 +17,11 @@ function NewSongCard({ songs }) {
             <ListGroup className="list-group-flush">
                 {songs.map(song => (
                     <ListGroupItem key={song.id}>
-                        <Link to={`/song/${song.id}`}>{song.artists.map(artist => artist.artist.alias).join(", ")} - {song.name}</Link>
+                        <Link to={`/song/${song.id}`}>{song.artists.map(artist => artist.artist.alias).join(", ")} - {
+                            song.name}</Link>
                     </ListGroupItem>
                 ))}
             </ListGroup>
-        </Card>
-    );
-}
-
-function CreateNewSongCard() {
-    return (
-        <Card>
-            <Card.Header>
-                Want to create a new song ?
-            </Card.Header>
-            <Card.Body>
-                <div className="form-group">
-                    <label>Use this link</label>
-                </div>
-                <div className="form-group">
-                    <Link to="/song/create">Create new song</Link>
-                </div>
-            </Card.Body>
         </Card>
     );
 }
@@ -75,7 +59,7 @@ class SongList extends React.Component {
 
                     <Row>
                         <Col>
-                            <CreateNewSongCard />
+                            <CreateNewSongCard/>
                         </Col>
                     </Row>
 
