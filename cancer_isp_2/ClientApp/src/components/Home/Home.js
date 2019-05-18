@@ -18,7 +18,7 @@ function TopSongCard({ songs, showFilter, onClick, onSubmit, onChange, rangeDays
         onClick: propTypes.func,
         onSubmit: propTypes.func,
         onChange: propTypes.func,
-        rangeDays: propTypes.number
+        rangeDays: propTypes.string
     }
 
     return (
@@ -40,11 +40,11 @@ function TopSongCard({ songs, showFilter, onClick, onSubmit, onChange, rangeDays
                               <Form onSubmit={onSubmit}>
                                   <Form.Group>
                                       <Form.Label>Top song period</Form.Label>
-                                      <Form.Control as="select" onChange={onChange}>
-                                          <option value="7" selected={rangeDays == 7}>1 week</option>
-                                          <option value="30" selected={rangeDays == 30}>1 month</option>
-                                          <option value="180" selected={rangeDays == 180}>6 months</option>
-                                          <option value="0" selected={rangeDays == 0}>All time</option>
+                                      <Form.Control as="select" onChange={onChange} defaultValue={rangeDays}>
+                                          <option value="7">1 week</option>
+                                          <option value="30">1 month</option>
+                                          <option value="180">6 months</option>
+                                          <option value="0">All time</option>
                                       </Form.Control>
                                   </Form.Group>
 
