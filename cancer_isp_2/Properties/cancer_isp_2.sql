@@ -28,6 +28,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `album`
 --
 
+CREATE DATABASE IF NOT EXISTS `cancer_isp_2`;
+
+USE `cancer_isp_2`;
+
 CREATE TABLE `album` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
