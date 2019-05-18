@@ -3,6 +3,11 @@ using System.Linq;
 using cancer_isp_2.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Enums;
+using SpotifyAPI.Web.Models;
+
+// ReSharper disable InconsistentNaming
 
 namespace cancer_isp_2.Controllers
 {
@@ -12,10 +17,12 @@ namespace cancer_isp_2.Controllers
     public class SongController : ControllerBase
     {
         private readonly CancerIspContext _context;
+        private readonly SpotifyWebAPI _spotifyWebApi;
 
-        public SongController(CancerIspContext context)
+        public SongController(CancerIspContext context, SpotifyWebAPI spotifyWebApi)
         {
             _context = context;
+            _spotifyWebApi = spotifyWebApi;
         }
 
         [HttpGet]
@@ -33,7 +40,7 @@ namespace cancer_isp_2.Controllers
 
         [HttpGet]
         [Route("{songId}")]
-        public IActionResult GetSong(int songId)
+        public IActionResult getSong(int songId)
         {
             var song = _context.Song
                 .Include(item => item.Artists)
@@ -50,7 +57,29 @@ namespace cancer_isp_2.Controllers
                 return BadRequest(new {error = "Error: no song with such id exists"});
             }
 
-            return Ok(song);
+            var searchItem =
+                requestSongDetails(song.Name, string.Join(", ", song.Artists.Select(x => x.Artist.Alias)));
+
+            var audioAnalysis = validateSongDetails(searchItem);
+
+            return Ok(new {song, songDetails = audioAnalysis});
+        }
+
+        private SearchItem requestSongDetails(string songName, string artistName)
+        {
+            var searchItem = _spotifyWebApi?.SearchItems($"{artistName} {songName}", SearchType.Track, limit: 1);
+
+            return searchItem;
+        }
+
+        private AudioFeatures validateSongDetails(SearchItem items)
+        {
+            if (items.Tracks.Items == null || !items.Tracks.Items.Any())
+            {
+                return null;
+            }
+
+            return _spotifyWebApi.GetAudioFeatures(items.Tracks.Items.Single().Id);
         }
     }
 }

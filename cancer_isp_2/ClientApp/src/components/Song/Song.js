@@ -7,9 +7,10 @@ import CreateNewSongCard from "./Song.CreateNewSong";
 import YouTube from "react-youtube";
 import { FaPlus } from "react-icons/fa";
 
-function SongCard({ song }) {
+function SongCard({ song, songDetails }) {
     SongCard.propTypes = {
-        song: PropTypes.object
+        song: PropTypes.object,
+        songDetails: PropTypes.object
     };
 
     return (
@@ -38,16 +39,49 @@ function SongCard({ song }) {
                     <br/>
                     <Form.Label>{song.genres.map(genre => genre.genre.name).join(", ")}</Form.Label>
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label>Album</Form.Label>
-                    <br/>
-                    <Form.Label>
-                        <Link to={`/album/${song.album.id}`}>{song.album.name}</Link>
-                    </Form.Label>
-                </Form.Group>
+                {song.album == null
+                    ? <div></div>
+                    : <Form.Group>
+                          <Form.Label>Album</Form.Label>
+                          <br/>
+                          <Form.Label>
+                              <Link to={`/album/${song.album.id}`}>{song.album.name}</Link>
+                          </Form.Label>
+                      </Form.Group>
+                }
+                {songDetails == null
+                    ? <div></div>
+                    : <Form.Group>
+                          <Form.Label>Song emotion</Form.Label>
+                          <br/>
+                          <Form.Label style={{ "font-size": "32px" }}>
+                              <SongEmotion valence={songDetails.valence}/>
+                          </Form.Label>
+                      </Form.Group>
+                }
             </Card.Body>
         </Card>
     );
+}
+
+function SongEmotion(props) {
+    SongEmotion.propTypes = {
+        valence: PropTypes.number
+    };
+
+    if (props.valence >= 0.8) {
+        return <div>😀</div>;
+    } else if (props.valence >= 0.6 && props.valence < 0.8) {
+        return <div>🙂</div>;
+    } else if (props.valence >= 0.4 && props.valence < 0.6) {
+        return <div>😐</div>;
+    } else if (props.valence >= 0.2 && props.valence < 0.4) {
+        return <div>😢</div>;
+    } else if (props.valence < 0.2) {
+        return <div>😭</div>;
+    } else {
+        return <div></div>;
+    }
 }
 
 function ImageCard({ image }) {
@@ -165,6 +199,7 @@ class Song extends React.Component {
                 album: {},
                 image: {}
             },
+            songDetails: {},
             playlists: [],
             playlistName: null
         };
@@ -212,15 +247,16 @@ class Song extends React.Component {
         fetch(`api/song/${this.state.songId}`)
             .then(res => res.json())
             .then(
-                (song) => {
+                (result) => {
                     fetch(`api/user/playlists`)
                         .then(res => res.json())
                         .then(
                             (playlists) => {
                                 this.setState({
                                     playlists: playlists,
-                                    song: song,
-                                    error: song.error
+                                    song: result.song,
+                                    songDetails: result.songDetails,
+                                    error: result.song.error
                                 });
                             });
                 },

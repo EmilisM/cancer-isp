@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Auth;
+using SpotifyAPI.Web.Enums;
+using Unosquare.Swan.Abstractions;
 
 namespace cancer_isp_2
 {
@@ -36,6 +40,19 @@ namespace cancer_isp_2
         public void RegisterDependencies(IServiceCollection service)
         {
             service.AddSingleton(new CancerIspContext());
+
+            var clientId = Configuration.GetValue<string>("spotify_client_id");
+            var clientSecret = Configuration.GetValue<string>("spotify_client_secret");
+
+            var auth = new CredentialsAuth(clientId, clientSecret);
+            var token = auth.GetToken();
+            var api = new SpotifyWebAPI
+            {
+                TokenType = token.Result.TokenType,
+                AccessToken = token.Result.AccessToken
+            };
+
+            service.AddSingleton(api);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
