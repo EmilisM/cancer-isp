@@ -60,7 +60,7 @@ function TopSongCard({ songs, showFilter, onClick, onSubmit, onChange, rangeDays
                                           <Col>
                                               <Image src={song.song.image.url}/>
                                               <Link to={`/song/${song.song.id}`}>
-                                                  {song.song.artists.map(artist => artist.artist.alias)
+                                                  {song.song.artists.map(artist => artist.artist.name)
                                                       .join(", ")} - {song
                                                           .song.name}
                                               </Link>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2019 at 09:16 PM
+-- Generation Time: May 18, 2019 at 08:01 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -11,6 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,10 +27,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `album`
 --
-
-CREATE DATABASE IF NOT EXISTS `cancer_isp_2`;
-
-USE `cancer_isp_2`;
 
 CREATE TABLE `album` (
   `id` int(11) NOT NULL,
@@ -54,7 +51,7 @@ INSERT INTO `album` (`id`, `name`, `release_date`, `image_id`) VALUES
 
 CREATE TABLE `artist` (
   `id` int(11) NOT NULL,
-  `alias` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `full_name` varchar(255) DEFAULT NULL,
   `birthdate` date DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -66,9 +63,10 @@ CREATE TABLE `artist` (
 -- Dumping data for table `artist`
 --
 
-INSERT INTO `artist` (`id`, `alias`, `full_name`, `birthdate`, `description`, `origin_date`, `user_id`) VALUES
+INSERT INTO `artist` (`id`, `name`, `full_name`, `birthdate`, `description`, `origin_date`, `user_id`) VALUES
 (3, 'Vienas', 'VienasVienas', '2019-05-29', 'Isthis', '2019-05-03', 1),
-(4, 'Du', 'DuDu', '2019-05-16', 'Isthis', '2019-05-01', 1);
+(4, 'Du', 'DuDu', '2019-05-16', 'Isthis', '2019-05-01', 1),
+(6, 'Pink floyd', NULL, '2019-05-15', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -106,7 +104,8 @@ CREATE TABLE `artist_song` (
 
 INSERT INTO `artist_song` (`song_id`, `artist_id`) VALUES
 (1, 3),
-(1, 4);
+(1, 4),
+(2, 6);
 
 -- --------------------------------------------------------
 
@@ -162,6 +161,14 @@ CREATE TABLE `playlist` (
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `playlist`
+--
+
+INSERT INTO `playlist` (`id`, `name`, `description`, `state`, `user_id`) VALUES
+(1, 'Playlist first best', NULL, NULL, 1),
+(2, 'sun kill mooon', NULL, NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -172,6 +179,14 @@ CREATE TABLE `playlist_song` (
   `playlist_id` int(11) NOT NULL,
   `song_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `playlist_song`
+--
+
+INSERT INTO `playlist_song` (`playlist_id`, `song_id`) VALUES
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -194,7 +209,8 @@ CREATE TABLE `rating` (
 
 INSERT INTO `rating` (`id`, `points`, `creation_date`, `comment`, `song_id`, `user_id`) VALUES
 (1, 10, '2019-05-10', 'Very good song!', 1, 1),
-(2, 6, '2019-05-01', 'Sub par', 1, 1);
+(2, 6, '2019-05-01', 'Sub par', 1, 1),
+(3, 9, '2019-05-17', 'nice', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -219,7 +235,8 @@ CREATE TABLE `song` (
 --
 
 INSERT INTO `song` (`id`, `name`, `release_date`, `length_in_seconds`, `description`, `image_id`, `album_id`, `user_id`, `youtube_video_id`) VALUES
-(1, 'First song of album', '2019-05-10 00:00:00', 120, NULL, 1, 2, 1, '8MQO2STCbbY');
+(1, 'First song of album', '2019-05-10 00:00:00', 120, NULL, 1, 2, 1, '8MQO2STCbbY'),
+(2, 'Money', '2019-05-17 00:00:00', NULL, NULL, 1, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -407,7 +424,7 @@ ALTER TABLE `album`
 -- AUTO_INCREMENT for table `artist`
 --
 ALTER TABLE `artist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `genre`
@@ -425,19 +442,19 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `song`
 --
 ALTER TABLE `song`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`

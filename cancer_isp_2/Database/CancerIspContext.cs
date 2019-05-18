@@ -81,8 +81,8 @@ namespace cancer_isp_2.Database
                     .HasColumnName("id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Alias)
-                    .HasColumnName("alias")
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
                     .HasMaxLength(255)
                     .IsUnicode(false);
 

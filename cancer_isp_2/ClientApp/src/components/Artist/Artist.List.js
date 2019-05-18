@@ -17,7 +17,7 @@ function NewArtistCard({ artists }) {
             <ListGroup className="list-group-flush">
                 {artists.map(artist => (
                     <ListGroupItem key={artist.id}>
-                        <Link to={`/artist/${artist.id}`}>{artist.alias} {artist.fullName}</Link>
+                        <Link to={`/artist/${artist.id}`}>{artist.name} {artist.fullName}</Link>
                     </ListGroupItem>
                 ))}
             </ListGroup>

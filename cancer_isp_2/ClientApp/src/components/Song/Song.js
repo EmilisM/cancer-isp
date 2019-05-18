@@ -1,6 +1,5 @@
 ﻿import React from "react";
-import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert, Popover, OverlayTrigger, Button } from
-    "react-bootstrap";
+import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert, Popover, OverlayTrigger, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import CreateNewSongCard from "./Song.CreateNewSong";
@@ -22,7 +21,7 @@ function SongCard({ song, songDetails }) {
                 <Form.Group>
                     <Form.Label>Artist(s)</Form.Label>
                     <br/>
-                    <Form.Label>{song.artists.map(artist => artist.artist.alias).join(", ")}</Form.Label>
+                    <Form.Label>{song.artists.map(artist => artist.artist.name).join(", ")}</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Song name</Form.Label>
@@ -54,7 +53,7 @@ function SongCard({ song, songDetails }) {
                     : <Form.Group>
                           <Form.Label>Song emotion</Form.Label>
                           <br/>
-                          <Form.Label style={{ "font-size": "32px" }}>
+                          <Form.Label style={{ fontSize: "32px" }}>
                               <SongEmotion valence={songDetails.valence}/>
                           </Form.Label>
                       </Form.Group>

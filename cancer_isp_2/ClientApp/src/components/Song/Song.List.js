@@ -17,7 +17,7 @@ function NewSongCard({ songs }) {
             <ListGroup className="list-group-flush">
                 {songs.map(song => (
                     <ListGroupItem key={song.id}>
-                        <Link to={`/song/${song.id}`}>{song.artists.map(artist => artist.artist.alias).join(", ")} - {
+                        <Link to={`/song/${song.id}`}>{song.artists.map(artist => artist.artist.name).join(", ")} - {
                             song.name}</Link>
                     </ListGroupItem>
                 ))}

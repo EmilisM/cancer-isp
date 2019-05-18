@@ -15,9 +15,9 @@ function ArtistCard({ artist }) {
             </Card.Header>
             <Card.Body>
                 <Form.Group>
-                    <Form.Label>Alias</Form.Label>
+                    <Form.Label>Name</Form.Label>
                     <br/>
-                    <Form.Label>{artist.alias}</Form.Label>
+                    <Form.Label>{artist.name}</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Full name</Form.Label>

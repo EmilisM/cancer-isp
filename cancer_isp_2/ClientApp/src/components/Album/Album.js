@@ -22,7 +22,7 @@ function AlbumCard({ album }) {
                 <Form.Group>
                     <Form.Label>Artist(s)</Form.Label>
                     <br/>
-                    <Form.Label>{album.artists.map(artist => artist.artist.alias).join(", ")}</Form.Label>
+                    <Form.Label>{album.artists.map(artist => artist.artist.name).join(", ")}</Form.Label>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Release date</Form.Label>

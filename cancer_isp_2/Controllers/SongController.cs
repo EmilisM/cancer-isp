@@ -58,7 +58,7 @@ namespace cancer_isp_2.Controllers
             }
 
             var searchItem =
-                requestSongDetails(song.Name, string.Join(", ", song.Artists.Select(x => x.Artist.Alias)));
+                requestSongDetails(song.Name, string.Join(", ", song.Artists.Select(x => x.Artist.Name)));
 
             var audioAnalysis = validateSongDetails(searchItem);
 
