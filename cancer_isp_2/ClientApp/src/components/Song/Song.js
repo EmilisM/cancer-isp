@@ -1,5 +1,6 @@
 ﻿import React from "react";
-import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert, Popover, OverlayTrigger, Button } from "react-bootstrap";
+import { Card, Row, Col, Form, Image, ListGroup, ListGroupItem, Alert, Popover, OverlayTrigger, Button } from
+    "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import CreateNewSongCard from "./Song.CreateNewSong";
@@ -159,8 +160,33 @@ function SongPlaybackCard(props) {
 
 function SongRatingsCard(props) {
     SongRatingsCard.propTypes = {
-        ratings: PropTypes.array
+        ratings: PropTypes.array,
+        rating: PropTypes.string,
+        comment: PropTypes.string,
+        onRatingSubmit: PropTypes.func,
+        onInputChange: PropTypes.func
     };
+
+    const popover = (
+        <Popover id="popover-basic" title="Add rating/comment">
+            <Form onSubmit={props.onRatingSubmit}>
+                <Form.Group>
+                    <Form.Label>Rating</Form.Label>
+                    <Form.Control placeholder="1-10" value={props.rating} name="rating" onChange={props
+                        .onInputChange}/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Comment</Form.Label>
+                    <Form.Control placeholder="Song is good!" value={props.comment} name="comment" onChange={props
+                        .onInputChange
+}/>
+                </Form.Group>
+                <Form.Group>
+                    <Button type="submit">Create review</Button>
+                </Form.Group>
+            </Form>
+        </Popover>
+    );
 
     return (
         <Card>
@@ -178,7 +204,9 @@ function SongRatingsCard(props) {
             <Card.Body>
                 <Card.Link href="#">Next</Card.Link>
                 <Card.Link href="#">Previous</Card.Link>
-                <Card.Link href="#">Create new rating</Card.Link>
+                <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                    <Card.Link href="#" onClick={(e) => e.preventDefault()}>Create new rating</Card.Link>
+                </OverlayTrigger>
             </Card.Body>
         </Card>
     );
@@ -200,7 +228,10 @@ class Song extends React.Component {
             },
             songDetails: {},
             playlists: [],
-            playlistName: null
+            playlistName: null,
+            comment: "",
+            rating: ""
+
         };
 
         Song.propTypes = {
@@ -212,6 +243,28 @@ class Song extends React.Component {
         this.onPlaylistClick = this.onPlaylistClick.bind(this);
         this.onPlaylistCreate = this.onPlaylistCreate.bind(this);
         this.onPlaylistNameChange = this.onPlaylistNameChange.bind(this);
+        this.onRatingSubmit = this.onRatingSubmit.bind(this);
+        this.onRatingInputChange = this.onRatingInputChange.bind(this);
+    }
+
+    onRatingInputChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    onRatingSubmit(e) {
+        e.preventDefault();
+
+        fetch(`api/song/${this.state.songId}/new/comment`,
+            {
+                method: "POST",
+                body: JSON.stringify({ Rating: this.state.rating, Comment: this.state.comment }),
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            });
     }
 
     onPlaylistNameChange(e) {
@@ -302,7 +355,10 @@ class Song extends React.Component {
 
                               <Row>
                                   <Col>
-                                      <SongRatingsCard ratings={this.state.song.ratings}/>
+                                      <SongRatingsCard ratings={this.state.song.ratings} rating={this.state.rating
+                                          .rating}
+                                                       comment={this.state.rating.comment} onRatingSubmit={this
+                                                           .onRatingSubmit} onInputChange={this.onRatingInputChange}/>
                                   </Col>
                               </Row>
 

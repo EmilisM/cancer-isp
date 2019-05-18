@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using cancer_isp_2.Database;
+using cancer_isp_2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpotifyAPI.Web;
@@ -36,6 +37,25 @@ namespace cancer_isp_2.Controllers
                     song.ReleaseDate.HasValue && song.ReleaseDate.Value.Month == DateTime.Now.Month);
 
             return Ok(songs);
+        }
+
+        [HttpPost]
+        [Route("{songId}/new/comment")]
+        public IActionResult AddNewComment(int songId, CommentModel model)
+        {
+            var newRating = new Rating
+            {
+                Points = model.Rating,
+                Comment = model.Comment,
+                CreationDate = DateTime.Now,
+                SongId = songId,
+                UserId = 1
+            };
+
+            _context.Rating.Add(newRating);
+            _context.SaveChanges();
+
+            return Ok();
         }
 
         [HttpGet]
