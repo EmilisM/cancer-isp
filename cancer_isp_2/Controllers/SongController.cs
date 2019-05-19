@@ -96,10 +96,23 @@ namespace cancer_isp_2.Controllers
                 LengthInSeconds = model.LengthInSeconds,
                 Description = model.Description,
                 YoutubeVideoId = model.YoutubeVideoId,
+                AlbumId = model.AlbumId,
                 UserId = 1
             };
 
-            _context.Song.Add(newSong);
+            var addedEntity = _context.Song.Add(newSong);
+
+            foreach (var genreId in model.GenreIds)
+            {
+                var newSongGenre = new SongGenre
+                {
+                    SongId = addedEntity.Entity.Id,
+                    GenreId = genreId
+                };
+
+                _context.SongGenre.Add(newSongGenre);
+            }
+
             _context.SaveChanges();
 
             return Ok();

@@ -1,4 +1,6 @@
-﻿namespace cancer_isp_2.Models
+﻿using System.Collections.Generic;
+
+namespace cancer_isp_2.Models
 {
     public class SongModel
     {
@@ -7,5 +9,9 @@
         public int LengthInSeconds { get; set; }
         public string YoutubeVideoId { get; set; }
         public string ReleaseDate { get; set; }
+
+        public int AlbumId { get; set; }
+
+        public List<int> GenreIds { get; set; }
     }
 }
