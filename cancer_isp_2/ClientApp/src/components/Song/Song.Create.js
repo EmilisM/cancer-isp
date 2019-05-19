@@ -18,6 +18,21 @@ function SongCreationCard() {
                         <Form.Control type="text" placeholder="Artist full name"/>
                     </Form.Group>
                     <Form.Group>
+                        <Form.Label>Creation date</Form.Label>
+                        <Form.Control type="date" placeholder="Creation date" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control type="textarea" rows="3" placeholder="Description" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Length in Seconds</Form.Label>
+                        <Form.Control
+                            type='number'
+                            placeholder="Length in Seconds"
+                        />
+                    </Form.Group>
+                    <Form.Group>
                         <Button variant="primary" type="Repeat password">
                             Create
                         </Button>

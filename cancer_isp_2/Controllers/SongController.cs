@@ -85,6 +85,29 @@ namespace cancer_isp_2.Controllers
             return Ok(new {song, songDetails = audioAnalysis});
         }
 
+        [HttpPost]
+        [Route("songs/create")]
+        public IActionResult AddNewSong(Song model)
+        {
+            var newSong = new Song
+            {
+                Name = model.Name,
+                Artists = model.Artists,
+                ReleaseDate = model.ReleaseDate,
+                LengthInSeconds = model.LengthInSeconds,
+                Description = model.Description,
+                ImageId = model.ImageId,
+                AlbumId = model.AlbumId,
+                YoutubeVideoId = model.YoutubeVideoId,
+                UserId = 1
+            };
+
+            _context.Song.Add(newSong);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
         private SearchItem requestSongDetails(string songName, string artistName)
         {
             var searchItem = _spotifyWebApi?.SearchItems($"{artistName} {songName}", SearchType.Track, limit: 1);
