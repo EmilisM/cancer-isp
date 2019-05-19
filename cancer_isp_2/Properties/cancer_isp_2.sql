@@ -324,6 +324,28 @@ INSERT INTO `user_role` (`id`, `name`) VALUES
 (3, 'admin'),
 (4, 'blocked');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `report`
+--
+
+CREATE TABLE `report` (
+  `id` int(11) NOT NULL,
+  `reason` varchar(255) DEFAULT NULL,
+  `song_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `genre`
+--
+
+INSERT INTO `report` (`id`, `reason`, `song_id`) VALUES
+(1, 'Offensive', 1),
+(2, 'Bad', 2);
+
+-- --------------------------------------------------------
+
 --
 -- Indexes for dumped tables
 --
@@ -425,6 +447,13 @@ ALTER TABLE `user_profile`
 --
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
+  
+  --
+-- Indexes for table `report`
+--
+ALTER TABLE `report`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `song_id` (`song_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -490,6 +519,11 @@ ALTER TABLE `user_profile`
 ALTER TABLE `user_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
+  --
+-- AUTO_INCREMENT for table `report`
+--
+ALTER TABLE `report`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
@@ -561,6 +595,12 @@ ALTER TABLE `song_genre`
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`user_role_id`) REFERENCES `user_role` (`id`),
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`user_profile_id`) REFERENCES `user_profile` (`id`);
+  
+  --
+-- Constraints for table `report
+--
+ALTER TABLE `report`
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`song_id`) REFERENCES `song` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
