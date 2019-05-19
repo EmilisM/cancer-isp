@@ -64,6 +64,8 @@ function SongCard({ song, songDetails }) {
     );
 }
 
+
+
 function SongEmotion(props) {
     SongEmotion.propTypes = {
         valence: PropTypes.number
@@ -158,6 +160,8 @@ function SongPlaybackCard(props) {
     );
 }
 
+
+
 function SongRatingsCard(props) {
     SongRatingsCard.propTypes = {
         ratings: PropTypes.array,
@@ -207,6 +211,27 @@ function SongRatingsCard(props) {
                 <OverlayTrigger trigger="click" placement="right" overlay={popover}>
                     <Card.Link href="#" onClick={(e) => e.preventDefault()}>Create new rating</Card.Link>
                 </OverlayTrigger>
+            </Card.Body>
+        </Card>
+    );
+}
+
+function SongReportCard() {
+    return (
+        <Card>
+            <Card.Header>
+                Song reporting
+            </Card.Header>
+            <Card.Body>
+                <Form.Group>
+                    <Form.Label>Reason</Form.Label>
+                    <Form.Control type="text" placeholder="Reason" />
+                </Form.Group>
+                <Form.Group>
+                    <Button variant="primary" type="submit">
+                        Report
+                    </Button>
+                </Form.Group>
             </Card.Body>
         </Card>
     );
@@ -342,8 +367,12 @@ class Song extends React.Component {
                                   <Col>
                                       <CreateNewSongCard/>
                                   </Col>
-                              </Row>
-
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <SongReportCard/>
+                                </Col>
+                            </Row>
                           </Col>
                           <Col>
 

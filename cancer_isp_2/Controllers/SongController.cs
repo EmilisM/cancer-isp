@@ -118,6 +118,22 @@ namespace cancer_isp_2.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("{songId}/report")]
+        public IActionResult AddNewReport(int songId, string reason)
+        {
+            var newReport = new Report
+            {
+                Reason = reason,
+                SongId = songId
+            };
+
+            _context.Report.Add(newReport);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
         private SearchItem requestSongDetails(string songName, string artistName)
         {
             var searchItem = _spotifyWebApi?.SearchItems($"{artistName} {songName}", SearchType.Track, limit: 1);

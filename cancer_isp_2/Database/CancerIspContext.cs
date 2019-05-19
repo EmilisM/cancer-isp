@@ -22,6 +22,7 @@ namespace cancer_isp_2.Database
         public virtual DbSet<Playlist> Playlist { get; set; }
         public virtual DbSet<PlaylistSong> PlaylistSong { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
+        public virtual DbSet<Report> Report { get; set; }
         public virtual DbSet<Song> Song { get; set; }
         public virtual DbSet<SongGenre> SongGenre { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -325,6 +326,28 @@ namespace cancer_isp_2.Database
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("rating_ibfk_2");
+            });
+
+
+            modelBuilder.Entity<Report>(entity =>
+            {
+                entity.ToTable("report", "cancer_isp_2");
+
+                entity.HasIndex(e => e.SongId)
+                    .HasName("song_id");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Reason)
+                    .HasColumnName("comment")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SongId)
+                    .HasColumnName("song_id")
+                    .HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Song>(entity =>
