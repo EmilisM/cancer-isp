@@ -86,18 +86,15 @@ namespace cancer_isp_2.Controllers
         }
 
         [HttpPost]
-        [Route("songs/create")]
-        public IActionResult AddNewSong(Song model)
+        [Route("create")]
+        public IActionResult AddNewSong(SongModel model)
         {
             var newSong = new Song
             {
                 Name = model.Name,
-                Artists = model.Artists,
-                ReleaseDate = model.ReleaseDate,
+                ReleaseDate = Convert.ToDateTime(model.ReleaseDate),
                 LengthInSeconds = model.LengthInSeconds,
                 Description = model.Description,
-                ImageId = model.ImageId,
-                AlbumId = model.AlbumId,
                 YoutubeVideoId = model.YoutubeVideoId,
                 UserId = 1
             };
