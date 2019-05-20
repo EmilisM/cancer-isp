@@ -54,6 +54,7 @@ function NavigationBar(props) {
                           <NavLink name="Search" path="/search"/>
                           <NavLink name="Admin" path="/admin"/>
                           <NavLink name="Donate" path="/donate"/>
+                          <NavLink name="UploadPicture" path="/uploadpicture" />
                           <a className="nav-link" onClick={props.onLogOut} style={{ cursor: "pointer" }}>Sign Out</a>
                       </Nav>
                     : <Nav className="mr-auto">
