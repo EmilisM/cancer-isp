@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using cancer_isp_2.Database;
+using cancer_isp_2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +46,27 @@ namespace cancer_isp_2.Controllers
             }
 
             return Ok(artist);
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public IActionResult AddNewArtist(ArtistModel model)
+        {
+            var newArtist = new Artist
+            {
+                Name = model.Name,
+                FullName = model.FullName,
+                Birthdate = Convert.ToDateTime(model.Birthdate),
+                Description = model.Description,
+                OriginDate = Convert.ToDateTime(model.OriginDate),
+                UserId = 1
+            };
+
+            var addedEntity = _context.Artist.Add(newArtist);
+
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

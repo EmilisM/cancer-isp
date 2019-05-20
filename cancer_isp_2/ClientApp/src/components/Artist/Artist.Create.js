@@ -18,6 +18,18 @@ function ArtistCreationCard() {
                         <Form.Control type="text" placeholder="Artist full name"/>
                     </Form.Group>
                     <Form.Group>
+                        <Form.Label>Birth date</Form.Label>
+                        <Form.Control type="date" placeholder="Birth date" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control type="textarea" placeholder="Description" rows="3"/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Date of origin</Form.Label>
+                        <Form.Control type="date" placeholder="Start of career" />
+                    </Form.Group>
+                    <Form.Group>
                         <Button variant="primary" type="Repeat password">
                             Create
                         </Button>
