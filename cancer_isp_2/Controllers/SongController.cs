@@ -86,7 +86,7 @@ namespace cancer_isp_2.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("create/new")]
         public IActionResult AddNewSong(SongModel model)
         {
             var newSong = new Song

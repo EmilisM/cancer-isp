@@ -39,7 +39,7 @@ function SongCreationCard(props) {
                     <Form.Group>
                         <Form.Label>Length in Seconds</Form.Label>
                         <Form.Control
-                            type='number'
+                            type="number"
                             placeholder="Length in Seconds" name="length" value={props.length} onChange={props.onInputChange}
                         />
                     </Form.Group>
@@ -77,14 +77,15 @@ class Song extends React.Component {
 
     onSongSubmit(e) {
         e.preventDefault();
-        fetch(`api/song/create`,
+
+        fetch("api/song/create/new",
             {
                 method: "POST",
                 body: JSON.stringify({
-                    Name: this.state.name,
-                    ReleaseDate: this.state.releaseDate,
-                    Description: this.state.description,
-                    LengthInSeconds: this.state.length
+                    name: this.state.name,
+                    releaseDate: this.state.releaseDate,
+                    description: this.state.description,
+                    lengthInSeconds: this.state.length
                 }),
                 headers: {
                     "Accept": "application/json",
