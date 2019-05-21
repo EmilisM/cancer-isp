@@ -1,30 +1,76 @@
-﻿using System.Linq;
-using cancer_isp_2.Database;
-using Microsoft.AspNetCore.Mvc;
+/**
+ * @(#) LoginController.cs
+ */
 
-namespace cancer_isp_2.Controllers
+namespace Generation_Model
 {
-    [Route("api/login")]
-    [Produces("application/json")]
-    [ApiController]
-    public class LoginController : ControllerBase
-
-    {
-        private readonly CancerIspContext context;
-
-        public LoginController(CancerIspContext context)
-        {
-            this.context = context;
-        }
-
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetUser(string username)
-        {
-            var newuser = context.User
-                .FirstOrDefault(user => user.Username == username);
-
-            return Ok(newuser);
-        }
-    }
+	public class LoginController
+	{
+		public void openLogin(  )
+		{
+			
+		}
+		
+		public void sendPasswordEmailReset(  )
+		{
+			
+		}
+		
+		public void login(  )
+		{
+			
+		}
+		
+		public void authenticateUser(  )
+		{
+			
+		}
+		
+		public void openRegister(  )
+		{
+			
+		}
+		
+		public void validateRegistrationData(  )
+		{
+			
+		}
+		
+		public void register(  )
+		{
+			
+		}
+		
+		public void remindPassword(  )
+		{
+			
+		}
+		
+		public void validateEmailAdress(  )
+		{
+			
+		}
+		
+		public void validateLoginData(  )
+		{
+			
+		}
+		
+		public void redirectToPasswordReset(  )
+		{
+			
+		}
+		
+		public void passwordReset(  )
+		{
+			
+		}
+		
+		public void validateUserPassword(  )
+		{
+			
+		}
+		
+	}
+	
 }
