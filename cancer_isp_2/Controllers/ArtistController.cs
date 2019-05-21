@@ -49,16 +49,16 @@ namespace cancer_isp_2.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("create/new")]
         public IActionResult AddNewArtist(ArtistModel model)
         {
             var newArtist = new Artist
             {
                 Name = model.Name,
                 FullName = model.FullName,
-                Birthdate = Convert.ToDateTime(model.Birthdate),
+                Birthdate = DateTime.Now,//Convert.ToDateTime(model.Birthdate),
                 Description = model.Description,
-                OriginDate = Convert.ToDateTime(model.OriginDate),
+                OriginDate = DateTime.Now,//Convert.ToDateTime(model.OriginDate),
                 UserId = 1
             };
 

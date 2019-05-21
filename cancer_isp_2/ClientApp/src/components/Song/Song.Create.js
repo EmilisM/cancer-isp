@@ -22,7 +22,7 @@ function SongCreationCard(props) {
                 <Form onSubmit={props.onSongSubmit}>
                     <Form.Group>
                         <Form.Label>Song name</Form.Label>
-                        <Form.Control type="text" placeholder="Song name" name="name" value={props.songName} onChange={props.onInputChange} />
+                        <Form.Control type="text" placeholder="Song name" name="name" value={props.name} onChange={props.onInputChange} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Artist full name</Form.Label>
