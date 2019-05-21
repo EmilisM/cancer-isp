@@ -60,9 +60,9 @@ class Song extends React.Component {
             //songId: this.props.match.params.songId,
             error: null,
             name: "",
-            releaseDate: "",
+            //releaseDate: "",
             description: "",
-            length: ""
+            length: 0
         };
 
         this.onInputChange = this.onInputChange.bind(this);
@@ -78,12 +78,12 @@ class Song extends React.Component {
     onSongSubmit(e) {
         e.preventDefault();
 
-        fetch("api/song/create/new",
+        fetch(`api/song/create/new`,
             {
                 method: "POST",
                 body: JSON.stringify({
                     name: this.state.name,
-                    releaseDate: this.state.releaseDate,
+                    //releaseDate: this.state.releaseDate,
                     description: this.state.description,
                     lengthInSeconds: this.state.length
                 }),
@@ -101,12 +101,12 @@ class Song extends React.Component {
                     <Row>
                         <Col>
                             <SongCreationCard
-                                name={this.state.name}
-                                releaseDate={this.state.releaseDate}
-                                description={this.state.description}
-                                length={this.state.length}
-                                onSubmit={this.onSongSubmit}
-                                onChange={this.onInputChange}
+                                //name={this.state.name}
+                                //releaseDate={this.state.releaseDate}
+                                //description={this.state.description}
+                                //length={this.state.length}
+                                onSongSubmit={this.onSongSubmit}
+                                onInputChange={this.onInputChange}
                             />
                         </Col>
                     </Row>
