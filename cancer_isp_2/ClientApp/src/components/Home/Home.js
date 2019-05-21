@@ -79,7 +79,11 @@ function TopSongCard({ songs, showFilter, onClick, onSubmit, onChange, rangeDays
     );
 }
 
-function MusicRecommendationCard() {
+function MusicRecommendationCard(props) {
+    MusicRecommendationCard.propTypes = {
+        recommendedSongs: propTypes.array
+    }
+
     return (
         <Row>
             <Col>
@@ -87,11 +91,24 @@ function MusicRecommendationCard() {
                     <Card.Header>
                         Recommendation card
                     </Card.Header>
-                    <Card.Body>
-                        <div className="form-group">
-                            Recommendations for you dear !
-                        </div>
-                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                        {props.recommendedSongs.map(song => (
+                            <ListGroupItem key={song.id}>
+                                <Row>
+                                    <Col>
+                                        <Image src={song.image.url} />
+                                        <Link to={`/song/${song.id}`}>
+                                            {song.artists.map(artist => artist.artist.name)
+                                                .join(", ")} - {song.name}
+                                        </Link>
+                                    </Col>
+                                    <Col align="right">
+                                        <Form.Label>{song.genres.map(genre => genre.genre.name).join(", ")}</Form.Label>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>
+                        ))}
+                    </ListGroup>
                 </Card>
             </Col>
         </Row>
@@ -137,8 +154,10 @@ class Home extends React.Component {
 
         this.state = {
             songs: [],
+            recommendedSongs: [],
             showFilter: false,
-            rangeDays: "30"
+            rangeDays: "30",
+            userId: 1
         };
 
         this.onFilterClick = this.onFilterClick.bind(this);
@@ -178,11 +197,18 @@ class Home extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState({
-                        songs: result
-                    });
+                    fetch(`api/home/recommended/${this.state.userId}`)
+                        .then(res => res.json())
+                        .then(
+                            (recommend) => {
+                                this.setState({
+                                    songs: result,
+                                    recommendedSongs: recommend,
+                                });
+                            });
                 });
     }
+                
 
     render() {
         return (
@@ -207,7 +233,7 @@ class Home extends React.Component {
 } onChange={this.onFilterChange}/>
                             </Col>
                             <Col>
-                                <MusicRecommendationCard/>
+                                <MusicRecommendationCard {...this.state} />
                             </Col>
                         </Row>
                     </Col>
