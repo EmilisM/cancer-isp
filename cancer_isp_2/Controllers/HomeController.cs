@@ -47,41 +47,11 @@ namespace cancer_isp_2.Controllers
         [Route("recommended/{UserId}")]
         public IActionResult GetRecommendedSongs(int UserId = 1)
         {
-            //gets newest songs
             var recommendations = _context.Song
                 .OrderByDescending(song => song.Id)
                 .Take(5)
                 .ToList();
-            
-            //doesnt work
-            /*
-            var recommendations = _context.Song
-                .Where(song => song.Ratings)
 
-
-            var ratings = _context.Rating.Join
-                .Where(rating => rating.UserId == UserId)
-                .Where(rating => rating.Points >= 9)
-                .ToList();
-
-            //var recommendations = _context.Song.Where(song => song.Genres == ratings).ToList();
-            */
-            /*
-            var songs = _context.Song
-                .Include(song => song.Genres)
-                .Include(song => song.Image)
-                .Include(song => song.Artists)
-                .ThenInclude(song => song.Artist)
-                .Select(song => new
-                {
-                    Song = song,
-                    RatedSong = song.Ratings
-                    .Where(rating => rating.UserId == UserId)
-                    .OrderBy(rating => rating.Points).First().SongId,
-                    Genre = song.Genres
-                })
-                .ToList();
-                */
             return Ok(recommendations);
         }
     }
