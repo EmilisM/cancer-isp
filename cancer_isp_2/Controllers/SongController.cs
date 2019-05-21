@@ -19,22 +19,20 @@ namespace cancer_isp_2.Controllers
     {
         private readonly CancerIspContext _context;
         private readonly SpotifyWebAPI _spotifyWebApi;
+        private readonly IGetRecommendations<Song> getRecommendations;
 
-        public SongController(CancerIspContext context, SpotifyWebAPI spotifyWebApi)
+        public SongController(CancerIspContext context, SpotifyWebAPI spotifyWebApi, IGetRecommendations<Song> getRecommendations)
         {
             _context = context;
             _spotifyWebApi = spotifyWebApi;
+            this.getRecommendations = getRecommendations;
         }
 
         [HttpGet]
         [Route("new")]
         public IActionResult GetNewSongs()
         {
-            var songs = _context.Song
-                .Include(song => song.Artists)
-                .ThenInclude(song => song.Artist)
-                .Where(song =>
-                    song.ReleaseDate.HasValue && song.ReleaseDate.Value.Month == DateTime.Now.Month);
+            var songs = getRecommendations.GetRecommendations();
 
             return Ok(songs);
         }

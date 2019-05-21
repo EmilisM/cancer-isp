@@ -1,3 +1,4 @@
+using cancer_isp_2.Controllers;
 using cancer_isp_2.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,6 +53,7 @@ namespace cancer_isp_2
                 AccessToken = token.Result.AccessToken
             };
 
+            service.AddScoped<IGetRecommendations<Song>, GetSongRecommendations>();
             service.AddSingleton(api);
         }
 

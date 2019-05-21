@@ -12,10 +12,12 @@ namespace cancer_isp_2.Controllers
     public class HomeController : ControllerBase
     {
         private readonly CancerIspContext _context;
+        private readonly IGetRecommendations<Song> _getRecommendations;
 
-        public HomeController(CancerIspContext context)
+        public HomeController(CancerIspContext context, IGetRecommendations<Song> getRecommendations)
         {
             _context = context;
+            _getRecommendations = getRecommendations;
         }
 
         [HttpGet]
@@ -47,10 +49,7 @@ namespace cancer_isp_2.Controllers
         [Route("recommended/{UserId}")]
         public IActionResult GetRecommendedSongs(int UserId = 1)
         {
-            var recommendations = _context.Song
-                .OrderByDescending(song => song.Id)
-                .Take(5)
-                .ToList();
+            var recommendations = _getRecommendations.GetRecommendations();
 
             return Ok(recommendations);
         }
