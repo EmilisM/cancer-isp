@@ -25,8 +25,8 @@ function SongCreationCard(props) {
                         <Form.Control type="text" placeholder="Song name" name="name" value={props.name} onChange={props.onInputChange} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Artist full name</Form.Label>
-                        <Form.Control type="text" placeholder="Artist full name" name="artistName" value={props.artistName} onChange={props.onInputChange}/>
+                        <Form.Label>Artist id</Form.Label>
+                        <Form.Control type="text" placeholder="Artist id" name="artistId" value={props.artistId} onChange={props.onInputChange}/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Creation date</Form.Label>
@@ -62,7 +62,8 @@ class Song extends React.Component {
             name: "",
             //releaseDate: "",
             description: "",
-            length: 0
+            length: 0,
+			artistId: ""
         };
 
         this.onInputChange = this.onInputChange.bind(this);
