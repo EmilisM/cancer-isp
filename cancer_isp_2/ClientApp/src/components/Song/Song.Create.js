@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 function SongCreationCard(props) {
     SongCreationCard.propTypes = {
         name: PropTypes.string,
-        artistName: PropTypes.string,
         releaseDate: PropTypes.string,
         description: PropTypes.string,
         length: PropTypes.string,
@@ -57,10 +56,8 @@ class Song extends React.Component {
         super(props);
 
         this.state = {
-            //songId: this.props.match.params.songId,
             error: null,
             name: "",
-            //releaseDate: "",
             description: "",
             length: 0,
 			artistId: ""
@@ -71,6 +68,7 @@ class Song extends React.Component {
     }
 
     onInputChange(e) {
+		e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -84,9 +82,9 @@ class Song extends React.Component {
                 method: "POST",
                 body: JSON.stringify({
                     name: this.state.name,
-                    //releaseDate: this.state.releaseDate,
                     description: this.state.description,
-                    lengthInSeconds: this.state.length
+                    lengthInSeconds: this.state.length,
+					artistId: this.state.artistId,
                 }),
                 headers: {
                     "Accept": "application/json",
