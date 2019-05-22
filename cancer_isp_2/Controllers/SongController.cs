@@ -100,11 +100,11 @@ namespace cancer_isp_2.Controllers
             };
 			
 			var addedSong = _context.Song.Add(newSong);
-			
-			var newArtistSong = new ArtistSong()
-			{
-				SongId = addedSong.Id,
-				ArtistId = model.ArtistId,
+
+            var newArtistSong = new ArtistSong()
+            {
+                SongId = newSong.Id,
+				ArtistId = Convert.ToInt32(model.ArtistId),
 			};
 			
 			_context.ArtistSong.Add(newArtistSong);
